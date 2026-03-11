@@ -27,9 +27,15 @@ class ParkingController(Node):
         self.create_subscription(
             ConeLocation, "/relative_cone", self.relative_cone_callback, 1)
 
-        self.parking_distance = .75  # meters; try playing with this number!
+        self.parking_distance = 0.75  # meters; desired stop distance from cone
         self.relative_x = 0
         self.relative_y = 0
+
+        self.wheelbase = 0.325        # meters
+        self.max_speed = 1.0          # m/s
+        self.max_steering = 0.34      # radians (~20 deg)
+        self.parking_tolerance = 0.03  # meters; stop if within this of parking_distance
+        self.reversing = False
 
         self.get_logger().info("Parking Controller Initialized")
 
@@ -39,11 +45,52 @@ class ParkingController(Node):
         drive_cmd = AckermannDriveStamped()
 
         #################################
-
-        # YOUR CODE HERE
-        # Use relative position and your control law to set drive_cmd
-
+        # Pure Pursuit Controller
+        #
+        # The cone at (relative_x, relative_y) is used as the lookahead point.
+        # Pure pursuit computes the steering angle to follow an arc through it:
+        #
+        #   steering = atan(2 * wheelbase * sin(alpha) / d)
+        #
+        #   alpha = heading angle to the lookahead point
+        #   d     = Euclidean distance to the lookahead point
+        #
+        # Speed is proportional to the signed distance error (positive = drive
+        # forward, negative = reverse), and clamped to max_speed.
         #################################
+
+        d = np.sqrt(self.relative_x**2 + self.relative_y**2)
+        distance_error = d - self.parking_distance
+
+        # Pure pursuit steering toward the cone
+        alpha = np.arctan2(self.relative_y, self.relative_x)
+        steering = np.arctan(2.0 * self.wheelbase * np.sin(alpha) / d) if d > 0.01 else 0.0
+        steering = np.clip(steering, -self.max_steering, self.max_steering)
+
+        # Update reversing state: start reversing when parked but cone drifted behind,
+        # stop reversing once cone is back in front
+        if self.reversing and self.relative_x > 0:
+            self.reversing = False
+        elif abs(distance_error) < self.parking_tolerance and self.relative_x < self.parking_distance:
+            self.reversing = True
+
+        if d < 0.01:
+            speed, steering = 0.0, 0.0
+        elif self.reversing or self.relative_x < 0:
+            # Cone is behind or we need to back up — reverse straight
+            speed, steering = -self.max_speed, steering
+        elif abs(distance_error) < self.parking_tolerance:
+            # Within tolerance and aligned — stop
+            speed, steering = 0.0, 0.0
+        else:
+            # Normal forward pure pursuit
+            speed = np.clip(distance_error, -self.max_speed, self.max_speed)
+            if speed < 0:
+                steering = steering
+
+        self.get_logger().info(f"dist_err: {distance_error:.2f}  speed: {speed:.2f}  reversing: {self.reversing}")
+        drive_cmd.drive.speed = speed
+        drive_cmd.drive.steering_angle = steering
 
         self.drive_pub.publish(drive_cmd)
         self.error_publisher()
@@ -55,12 +102,10 @@ class ParkingController(Node):
         """
         error_msg = ParkingError()
 
-        #################################
-
-        # YOUR CODE HERE
-        # Populate error_msg with relative_x, relative_y, sqrt(x^2+y^2)
-
-        #################################
+        d = np.sqrt(self.relative_x**2 + self.relative_y**2)
+        error_msg.x_error = float(self.relative_x - self.parking_distance)
+        error_msg.y_error = float(self.relative_y)
+        error_msg.distance_error = float(d - self.parking_distance)
 
         self.error_pub.publish(error_msg)
 
