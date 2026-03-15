@@ -77,12 +77,12 @@ class YoloAnnotatorNode(Node):
         "chair", "couch", "tv", "laptop", "dining table", and many more. The list
         of available classes can be found in `self.model.names`.
         """
-        # TODO: Customize this dictionary for the lab. Choose a subset of
-        #       COCO class names to detect and their corresponding colors
-        #       in the annotated image.
         return {
-            "chair": (255, 0, 0),
-            "dining table": (0, 255, 0),
+            "person": (0, 255, 0), # green
+            "chair": (255, 0, 0), # blue
+            "cone": (255, 165, 0), # orange
+            "backpack": (0, 255, 255), # yellow
+            "bottle": (255, 0, 255), # magenta
         }
 
     def on_image(self, msg: Image) -> None:
@@ -143,11 +143,19 @@ class YoloAnnotatorNode(Node):
         conf_np = conf.detach().cpu().numpy() if hasattr(conf, "detach") else np.asarray(conf)
         cls_np = cls.detach().cpu().numpy() if hasattr(cls, "detach") else np.asarray(cls)
 
-        # TODO: Store YOLO outputs as Detections. Iterate through xyxy_np, conf_np, and cls_np
-        #       to append a Detection with all its instance variables filled in to the
-        #       detections List.
-        #
-        # Hint: use Python's zip keyword to iterate through the three arrays in a single for loop.
+        for box, confidence, class_id in zip(xyxy_np, conf_np, cls_np):
+            # box is [x1, y1, x2, y2] in pixel coordinates (float)
+            # class_id is a float from the tensor; cast to int for indexing
+            cid = int(class_id)
+            detections.append(Detection(
+                class_id=cid,
+                class_name=self.model.names[cid],
+                confidence=float(confidence),
+                x1=int(box[0]),
+                y1=int(box[1]),
+                x2=int(box[2]),
+                y2=int(box[3]),
+            ))
 
         return detections
 
@@ -160,18 +168,46 @@ class YoloAnnotatorNode(Node):
         out_image = bgr_image.copy()
 
         for det in detections:
-            # TODO: Get the bounding box for the detection
+            # Get the bounding box corners from the Detection dataclass
+            pt1 = (det.x1, det.y1) # top-left
+            pt2 = (det.x2, det.y2) # bottom-right
 
-            # TODO: Draw the bounding box around the detection to the output image.
-            #       Use the colors you specified per class in `get_class_color_map`
-            #       by accessing the self.class_color_map dictionary.
-            #
-            # Hint: Use cv2's `rectangle` function to draw a rectangle on the annotated image.
+            # Look up the BGR color assigned to this class
+            color = self.class_color_map[det.class_name]
 
-            # TODO: Label the box with the class name and confidence.
-            #
-            # Hint: Use cv2's `putText` function to put text on the annotated image.
-            raise NotImplementedError
+            # Draw the bounding box around the detection on the output image
+            cv2.rectangle(out_image, pt1, pt2, color, thickness=2)
+
+            # Build the label string: "class_name conf%"
+            label = f"{det.class_name} {det.confidence:.0%}"
+
+            # Position the label just above the top-left corner of the box.
+            # If the box is near the top of the image, shift the text inside
+            text_y = det.y1 - 8 if det.y1 - 8 > 10 else det.y1 + 16
+
+            # Draw a filled rectangle behind the text so it is readable
+            # regardless of background color
+            (text_w, text_h), _ = cv2.getTextSize(
+                label, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 1)
+            cv2.rectangle(
+                out_image,
+                (det.x1, text_y - text_h - 2),
+                (det.x1 + text_w, text_y + 2),
+                color,
+                thickness=cv2.FILLED,
+            )
+
+            # Draw the label text in black over the colored background
+            cv2.putText(
+                out_image,
+                label,
+                (det.x1, text_y),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                fontScale=0.5,
+                color=(0, 0, 0), # black text
+                thickness=1,
+                lineType=cv2.LINE_AA,
+            )
 
         return out_image
 
