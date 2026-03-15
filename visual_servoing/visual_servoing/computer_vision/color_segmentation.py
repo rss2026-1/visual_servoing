@@ -36,9 +36,36 @@ def cd_color_segmentation(img, template):
     """
     ########## YOUR CODE STARTS HERE ##########
 
-    bounding_box = ((0, 0), (0, 0))
+    height, width, _ = img.shape
+
+    kernel = np.ones((5, 5), np.uint8)
+    image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    filt = cv2.inRange(image, np.array([7, 150, 150]), np.array([35, 255, 255]))
+    filt = cv2.erode(filt, kernel, iterations=1)
+    # return cv2.bitwise_and(img, img, mask=filt)
+    contours, _ = cv2.findContours(filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    x, y, w, h = max([cv2.boundingRect(c) for c in contours], key=lambda r: r[2] * r[3])
+    xpad = round(w/2)
+    ypad = round(h/2)
+
+    bb_mask = np.zeros_like(filt)
+    bb_mask[max(0, y-ypad):min(y+h+ypad, height-1), max(0, x-xpad):min(x+w+xpad, width-1)] = 255
+    # return cv2.bitwise_and(img, img, mask=bb_mask)
+    image = cv2.bitwise_and(image, image, mask=bb_mask)
+    filt = cv2.inRange(image, np.array([5, 150, 100]), np.array([35, 255, 255]))
+    # return cv2.bitwise_and(img, img, mask=filt)
+    contours, _ = cv2.findContours(filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    x, y, w, h = max([cv2.boundingRect(c) for c in contours], key=lambda r: r[2] * r[3])
+    # return cv2.rectangle(img, (x, y), (x + w, y + h), color=(0, 255, 0), thickness=2)
 
     ########### YOUR CODE ENDS HERE ###########
 
     # Return bounding box
-    return bounding_box
+    return ((x, y), (x+w, y+h))
+
+if __name__ == "__main__":
+    og = cv2.imread('./test_images_cone/test2.jpg')
+    bb = cd_color_segmentation(og, og)
+    image_print(bb)
+
+    # image_print(cv2.rectangle(og, *bb, (0, 255, 0), 2))
