@@ -4,3 +4,4 @@ __pycache__/
 *.npz
 .DS_Store
 visual_servoing/visual_servoing/rosbags/
+visual_servoing/visual_servoing/rosbags/
