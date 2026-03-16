@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 *.npz
 .DS_Store
+visual_servoing/visual_servoing/rosbags/
