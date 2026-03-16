@@ -53,6 +53,7 @@ class ConeDetector(Node):
         height, width, _ = image.shape
         input = image
 
+<<<<<<< HEAD
         filt = np.zeros_like(image)[:, :, 0]
         percent = 0.648501362
         top = int(round(height*(percent-0.075)))
@@ -73,6 +74,16 @@ class ConeDetector(Node):
         boxed = cv2.rectangle(boxed, (int(pixel.u)-1, yh-2), (int(pixel.u)+1, yh), color=(0, 255, 0), thickness=1)
 
         debug_msg = self.bridge.cv2_to_imgmsg(boxed, "bgr8")
+=======
+        ((xl, _), (xh, y)) = cd_color_segmentation(image, image)
+
+        pixel = ConeLocationPixel()
+        pixel.u = (xl+xh)/2
+        pixel.v = y
+        self.cone_pub.publish(pixel)
+
+        debug_msg = self.bridge.cv2_to_imgmsg(image, "bgr8")
+>>>>>>> 8cfceea5f64a448fa82ec52d57dcaf47ca492378
         self.debug_pub.publish(debug_msg)
 
 
