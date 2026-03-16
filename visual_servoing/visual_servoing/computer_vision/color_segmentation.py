@@ -42,30 +42,6 @@ def cd_color_segmentation(img, template):
             (x1, y1) is the top left of the bbox and (x2, y2) is the bottom right of the bbox
     """
 
-    # height, width, _ = img.shape
-
-    # kernel = np.ones((5, 5), np.uint8)
-    # image = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    # filt = cv2.inRange(image, np.array([7, 150, 150]), np.array([35, 255, 255]))
-    # filt = cv2.erode(filt, kernel, iterations=1)
-    # # return cv2.bitwise_and(img, img, mask=filt)
-    # contours, _ = cv2.findContours(filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    # x, y, w, h = max([cv2.boundingRect(c) for c in contours], key=lambda r: r[2] * r[3])
-    # xpad = round(w/2)
-    # ypad = round(h/2)
-
-    # bb_mask = np.zeros_like(filt)
-    # bb_mask[max(0, y-ypad):min(y+h+ypad, height-1), max(0, x-xpad):min(x+w+xpad, width-1)] = 255
-    # # return cv2.bitwise_and(img, img, mask=bb_mask)
-    # image = cv2.bitwise_and(image, image, mask=bb_mask)
-    # filt = cv2.inRange(image, np.array([5, 150, 100]), np.array([35, 255, 255]))
-    # # return cv2.bitwise_and(img, img, mask=filt)
-    # contours, _ = cv2.findContours(filt, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    # x, y, w, h = max([cv2.boundingRect(c) for c in contours], key=lambda r: r[2] * r[3])
-    # # return cv2.rectangle(img, (x, y), (x + w, y + h), color=(0, 255, 0), thickness=2)
-
-    # return ((x, y), (x+w, y+h))
-
     params = np.array([7,150,147,40,255,255,8,178,75,37,255,254])
     return color_segmentation(
         img, template, params[0:3], params[3:6], params[6:9], params[9:]
@@ -102,7 +78,7 @@ def color_segmentation(img, template, lower1, upper1, lower2, upper2):
 
 def perturb(params, step=3, all=False):
     mutable = [i for i in range(len(params)) if i not in FROZEN]
-    
+
     if all:
         indices = mutable
     else:
