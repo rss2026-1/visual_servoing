@@ -71,7 +71,22 @@ def cd_sift_ransac(img, template):
 
         ########## YOUR CODE STARTS HERE ##########
 
-        x_min = y_min = x_max = y_max = 0
+        # Project the template corners into the test image using the homography.
+        # cv2.perspectiveTransform applies M to each point in pts, mapping
+        # template pixel coordinates -> corresponding locations in the test image.
+        dst = cv2.perspectiveTransform(pts, M)
+        # dst shape: (4, 1, 2) — four (x, y) points in the test image.
+
+        # Flatten to (4, 2) so we can easily extract x and y coordinates.
+        dst = dst.reshape(-1, 2)
+
+        # Compute the axis-aligned bounding box that encloses all four
+        # projected corners.  np.min/max over the four points gives us the
+        # tightest rectangle in the convention ((xmin, ymin), (xmax, ymax)).
+        x_min = int(np.min(dst[:, 0]))
+        y_min = int(np.min(dst[:, 1]))
+        x_max = int(np.max(dst[:, 0]))
+        y_max = int(np.max(dst[:, 1]))
 
         ########### YOUR CODE ENDS HERE ###########
 
@@ -119,9 +134,26 @@ def cd_template_matching(img, template):
         # Use OpenCV template matching functions to find the best match
         # across template scales.
 
-        # Remember to resize the bounding box using the highest scoring scale
-        # x1,y1 pixel will be accurate, but x2,y2 needs to be correctly scaled
-        bounding_box = ((0, 0), (0, 0))
+        # Apply normalized cross-correlation between the Canny edge image
+        # and the resized Canny template. TM_CCOEFF_NORMED scores range
+        # from -1 to 1; higher means a better match. This is the
+        # "Normalized Correlation" method described in lecture.
+        result = cv2.matchTemplate(img_canny, resized_template, cv2.TM_CCOEFF_NORMED)
+
+        # Find the location of the best score in the result map
+        _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+        # Keep track of the best match seen so far across all scales.
+        # best_match stores (score, top-left location, template h, template w)
+        if best_match is None or max_val > best_match[0]:
+            best_match = (max_val, max_loc, h, w)
+
+    # Unpack the best match found across all scales and build the bounding box.
+    # max_loc is the top-left corner (x1, y1); add the template dimensions
+    # at that scale to get the bottom-right corner (x2, y2).
+    _, (x1, y1), best_h, best_w = best_match
+    bounding_box = ((x1, y1), (x1 + best_w, y1 + best_h))
+
         ########### YOUR CODE ENDS HERE ###########
 
     return bounding_box
