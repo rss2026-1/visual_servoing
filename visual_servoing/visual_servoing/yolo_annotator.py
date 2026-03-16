@@ -80,7 +80,7 @@ class YoloAnnotatorNode(Node):
         return {
             "person": (0, 255, 0), # green
             "chair": (255, 0, 0), # blue
-            "cone": (255, 165, 0), # orange
+            "laptop": (255, 165, 0), # orange
             "backpack": (0, 255, 255), # yellow
             "bottle": (255, 0, 255), # magenta
         }

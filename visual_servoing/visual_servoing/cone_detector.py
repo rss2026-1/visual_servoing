@@ -50,8 +50,29 @@ class ConeDetector(Node):
         #################################
 
         image = self.bridge.imgmsg_to_cv2(image_msg, "bgr8")
+        height, width, _ = image.shape
+        input = image
 
-        debug_msg = self.bridge.cv2_to_imgmsg(image, "bgr8")
+        filt = np.zeros_like(image)[:, :, 0]
+        percent = 0.648501362
+        top = int(round(height*(percent-0.075)))
+        bottom = int(round(height*(percent)))
+        filt[top:bottom, 0:width] = 255
+        focused = cv2.bitwise_and(image, image, mask=filt)
+        print(filt.shape)
+        input = focused
+
+        ((xl, yl), (xh, yh)) = cd_color_segmentation(input, input)
+
+        pixel = ConeLocationPixel()
+        pixel.u = float(round((xl+xh)/2))
+        pixel.v = float(yh)
+        self.cone_pub.publish(pixel)
+
+        boxed = cv2.rectangle(focused, (xl, yl), (xh, yh), color=(0, 255, 0), thickness=2)
+        boxed = cv2.rectangle(boxed, (int(pixel.u)-1, yh-2), (int(pixel.u)+1, yh), color=(0, 255, 0), thickness=1)
+
+        debug_msg = self.bridge.cv2_to_imgmsg(boxed, "bgr8")
         self.debug_pub.publish(debug_msg)
 
 
@@ -60,7 +81,6 @@ def main(args=None):
     cone_detector = ConeDetector()
     rclpy.spin(cone_detector)
     rclpy.shutdown()
-
 
 if __name__ == '__main__':
     main()

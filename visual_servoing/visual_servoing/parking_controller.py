@@ -18,7 +18,7 @@ class ParkingController(Node):
     def __init__(self):
         super().__init__("parking_controller")
 
-        self.declare_parameter("drive_topic")
+        self.declare_parameter("drive_topic", rclpy.Parameter.Type.STRING)
         DRIVE_TOPIC = self.get_parameter("drive_topic").value  # set in launch file; different for simulator vs racecar
 
         self.drive_pub = self.create_publisher(AckermannDriveStamped, DRIVE_TOPIC, 10)
@@ -40,55 +40,65 @@ class ParkingController(Node):
         self.R_min = self.wheelbase / np.tan(self.max_steering)  # ~0.92 m
         self.buffer = 0.3
 
+        # Timer-based publishing to avoid stuttering with zero-command safety stream
+        self.drive_cmd = AckermannDriveStamped()
+        hz = 20
+        self.timer = self.create_timer(1.0 / hz, self.timer_callback)
+
         self.get_logger().info("Parking Controller Initialized")
 
     def relative_cone_callback(self, msg):
         self.relative_x = msg.x_pos
         self.relative_y = msg.y_pos
-        drive_cmd = AckermannDriveStamped()
 
         dist = np.sqrt(self.relative_x**2 + self.relative_y**2)
         distance_error = dist - self.parking_distance
 
-        # Pure pursuit steering toward the cone
         alpha = np.arctan2(self.relative_y, self.relative_x)
         steering = np.arctan(2.0 * self.wheelbase * np.sin(alpha) / dist)
         steering = np.clip(steering, -self.max_steering, self.max_steering)
 
-
         if dist < self.R_min + self.buffer and abs(alpha) > np.radians(50):
             self.kturn_active = True
 
-        if self.kturn_active and abs(alpha) < np.radians(20):
+        if abs(alpha) < np.radians(20):
             self.kturn_active = False
 
         cone_is_behind = self.relative_x < 0
-        cone_is_to_side = abs(alpha) > np.radians(70)
 
-
-        if self.kturn_active:
-            # K-turn phase 1: reverse with max steering to swing nose toward cone.
-            speed = -0.5
-            steering = -np.sign(alpha) * self.max_steering
-        elif cone_is_behind or cone_is_to_side:
-            # Cone is behind or far to the side — back up with flipped pursuit steering.
-            # -steering while reversing swings the nose toward the cone.
-            speed = -0.5
-            steering = -steering
-        elif abs(distance_error) < self.parking_tolerance:
+        # if self.kturn_active:
+        #     # K-turn phase 1: reverse with max steering to swing nose toward cone.
+        #     speed = -0.8
+        #     steering = -np.sign(alpha) * self.max_steering
+        # elif cone_is_behind:
+        #     speed = -0.8
+        #     steering = -np.sign(alpha) * self.max_steering
+        # elif abs(distance_error) < self.parking_tolerance:
+        #     # Within tolerance
+        #     speed, steering = 0.0, 0.0
+        # else:
+        #     # Normal forward pure pursuit
+        #     speed = np.sign(distance_error) * 0.8
+        #     if speed < 0:
+        #         steering = -steering
+        if abs(distance_error) < self.parking_tolerance:
             # Within tolerance
             speed, steering = 0.0, 0.0
         else:
             # Normal forward pure pursuit
-            speed = np.clip(distance_error, -self.max_speed, self.max_speed)
+            speed = np.sign(distance_error) * 0.8
             if speed < 0:
                 steering = -steering
 
-        drive_cmd.drive.speed = speed
-        drive_cmd.drive.steering_angle = steering
+        self.get_logger().info(f"speed={speed:.3f}, steering={steering:.3f}")
 
-        self.drive_pub.publish(drive_cmd)
+        self.drive_cmd.drive.speed = float(speed)
+        self.drive_cmd.drive.steering_angle = float(steering)
+
         self.error_publisher()
+
+    def timer_callback(self):
+        self.drive_pub.publish(self.drive_cmd)
 
     def error_publisher(self):
         """

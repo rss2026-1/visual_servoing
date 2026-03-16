@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
 
+'''
+Run 
+    ros2 run visual_servoing homography_transformer 
+and
+    ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed
+and
+    ros2 topic echo /zed/zed_node/rgb/image_rect_color_mouse_left
+to calibrate the homography matrix. In rviz2, add a Marker with the topic as /cone_marker to visualize the camera click location.
+Add a TF topic to visualize the camera frame. Have the fixed_frame as base_link.
+
+'''
+
 import rclpy
 from rclpy.node import Node
 import numpy as np
@@ -12,6 +24,7 @@ from sensor_msgs.msg import Image
 from ackermann_msgs.msg import AckermannDriveStamped
 from visualization_msgs.msg import Marker
 from vs_msgs.msg import ConeLocation, ConeLocationPixel
+from geometry_msgs.msg import Point
 
 # The following collection of pixel locations and corresponding relative
 # ground plane locations are used to compute our homography matrix
@@ -21,10 +34,11 @@ from vs_msgs.msg import ConeLocation, ConeLocationPixel
 
 ######################################################
 # DUMMY POINTS -- ENTER YOUR MEASUREMENTS HERE
-PTS_IMAGE_PLANE = [[-1, -1],
-                   [-1, -1],
-                   [-1, -1],
-                   [-1, -1]]  # dummy points
+PTS_IMAGE_PLANE = [[329,222],
+                   [252,220],
+                   [150, 253],
+                   [511,279]]  # dummy points
+# right is x, down is y 
 ######################################################
 
 # PTS_GROUND_PLANE units are in inches
@@ -32,10 +46,11 @@ PTS_IMAGE_PLANE = [[-1, -1],
 
 ######################################################
 # DUMMY POINTS -- ENTER YOUR MEASUREMENTS HERE
-PTS_GROUND_PLANE = [[-1, -1],
-                    [-1, -1],
-                    [-1, -1],
-                    [-1, -1]]  # dummy points
+PTS_GROUND_PLANE = [[36,0],
+                    [36,8],
+                    [22.5, 12],
+                    [22,-12]]  # dummy points
+# forwards is x, left is y
 ######################################################
 
 METERS_PER_INCH = 0.0254
@@ -48,6 +63,13 @@ class HomographyTransformer(Node):
         self.cone_pub = self.create_publisher(ConeLocation, "/relative_cone", 10)
         self.marker_pub = self.create_publisher(Marker, "/cone_marker", 1)
         self.cone_px_sub = self.create_subscription(ConeLocationPixel, "/relative_cone_px", self.cone_detection_callback, 1)
+
+        self.mouse_sub = self.create_subscription(
+            Point,
+            "/zed/zed_node/rgb/image_rect_color_mouse_left",
+            self.mouse_click_callback,
+            1
+        )
 
         if not len(PTS_GROUND_PLANE) == len(PTS_IMAGE_PLANE):
             rclpy.logerr("ERROR: PTS_GROUND_PLANE and PTS_IMAGE_PLANE should be of same length")
@@ -65,7 +87,13 @@ class HomographyTransformer(Node):
         self.h, err = cv2.findHomography(np_pts_image, np_pts_ground)
 
         self.get_logger().info("Homography Transformer Initialized")
-
+    def mouse_click_callback(self, msg):
+        u = msg.x
+        v = msg.y
+        x, y = self.transformUvToXy(u, v)
+        self.draw_marker(x, y, "base_link")
+        self.get_logger().info(f"Clicked pixel ({u:.0f},{v:.0f}) → ground ({x:.3f}m, {y:.3f}m)")
+        
     def cone_detection_callback(self, msg):
         # Extract information from message
         u = msg.u
@@ -95,6 +123,7 @@ class HomographyTransformer(Node):
         Units are in meters.
         """
         homogeneous_point = np.array([[u], [v], [1]])
+        # self.get_logger().info(f"{type(homogeneous_point)}")
         xy = np.dot(self.h, homogeneous_point)
         scaling_factor = 1.0 / xy[2, 0]
         homogeneous_xy = xy * scaling_factor
