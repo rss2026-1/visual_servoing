@@ -1,0 +1,2293 @@
+[
+  {
+    "params": [
+      0,
+      177,
+      123,
+      37,
+      255,
+      255,
+      3,
+      55,
+      105,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.909903201787044,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.9241084316070397
+  },
+  {
+    "params": [
+      0,
+      177,
+      123,
+      37,
+      255,
+      255,
+      3,
+      58,
+      105,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.909903201787044,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9532180007787728,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.9232941882836286
+  },
+  {
+    "params": [
+      0,
+      177,
+      123,
+      37,
+      255,
+      255,
+      3,
+      58,
+      108,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.909903201787044,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9532180007787728,
+      "./new_images/cone (7).jpg": 0.9395509499136442,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.9225166829641301
+  },
+  {
+    "params": [
+      3,
+      180,
+      120,
+      37,
+      255,
+      255,
+      3,
+      58,
+      105,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9532180007787728,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9119315022795508,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.9224858204854172
+  },
+  {
+    "params": [
+      3,
+      180,
+      123,
+      40,
+      255,
+      255,
+      3,
+      55,
+      114,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9007599463567277,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9533495467609994,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.4621406351862752
+  },
+  {
+    "params": [
+      3,
+      180,
+      114,
+      43,
+      255,
+      255,
+      3,
+      55,
+      105,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.909903201787044,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.46205421580351985
+  },
+  {
+    "params": [
+      3,
+      183,
+      114,
+      37,
+      255,
+      255,
+      0,
+      55,
+      108,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8929194279734914,
+      "./new_images/cone (2).jpg": 0.909903201787044,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.934309884744223,
+      "./new_images/cone (8).jpg": 0.9107605633802817,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.461961484527783
+  },
+  {
+    "params": [
+      3,
+      183,
+      114,
+      37,
+      255,
+      255,
+      3,
+      55,
+      102,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.46192387932564793
+  },
+  {
+    "params": [
+      3,
+      180,
+      114,
+      43,
+      255,
+      255,
+      3,
+      55,
+      102,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.46192387932564793
+  },
+  {
+    "params": [
+      3,
+      186,
+      117,
+      37,
+      255,
+      255,
+      3,
+      55,
+      99,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9433642355128942,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.4616279341349479
+  },
+  {
+    "params": [
+      3,
+      177,
+      120,
+      43,
+      255,
+      255,
+      0,
+      58,
+      102,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8929194279734914,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9533495467609994,
+      "./new_images/cone (7).jpg": 0.934309884744223,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.46143060368731675
+  },
+  {
+    "params": [
+      3,
+      180,
+      114,
+      43,
+      255,
+      255,
+      3,
+      55,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8915360501567398,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.949283139326894,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9119315022795508,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9299516908212561
+    },
+    "score": 0.4612789890850991
+  },
+  {
+    "params": [
+      3,
+      183,
+      120,
+      43,
+      255,
+      255,
+      3,
+      58,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9533495467609994,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9119315022795508,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.46124948754181994
+  },
+  {
+    "params": [
+      3,
+      186,
+      120,
+      37,
+      255,
+      255,
+      3,
+      58,
+      99,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8817579351238228,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9474060036802066,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.46122615780901405
+  },
+  {
+    "params": [
+      3,
+      177,
+      120,
+      43,
+      255,
+      255,
+      0,
+      58,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8929194279734914,
+      "./new_images/cone (2).jpg": 0.9006485849056604,
+      "./new_images/cone (3).jpg": 0.8989569065430407,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.945500387897595,
+      "./new_images/cone (6).jpg": 0.9533495467609994,
+      "./new_images/cone (7).jpg": 0.934309884744223,
+      "./new_images/cone (8).jpg": 0.8943293347873501,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9178743961352657
+    },
+    "score": 0.460276647891473
+  },
+  {
+    "params": [
+      3,
+      183,
+      120,
+      43,
+      255,
+      255,
+      3,
+      61,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8681318681318682,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8846808510638298,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.9527066640609733,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9473260031086294,
+      "./new_images/cone (8).jpg": 0.9119315022795508,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9057971014492754
+    },
+    "score": 0.4146651859440068
+  },
+  {
+    "params": [
+      3,
+      183,
+      117,
+      46,
+      255,
+      255,
+      0,
+      61,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8791208791208791,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8846808510638298,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.9527066640609733,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.934309884744223,
+      "./new_images/cone (8).jpg": 0.9001207331796729,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9057971014492754
+    },
+    "score": 0.41397329212024314
+  },
+  {
+    "params": [
+      3,
+      183,
+      117,
+      46,
+      255,
+      255,
+      0,
+      61,
+      105,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8791208791208791,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8846808510638298,
+      "./new_images/cone (4).jpg": 0.9304663212435234,
+      "./new_images/cone (5).jpg": 0.9527066640609733,
+      "./new_images/cone (6).jpg": 0.9489625632752963,
+      "./new_images/cone (7).jpg": 0.934309884744223,
+      "./new_images/cone (8).jpg": 0.9001207331796729,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.9057971014492754
+    },
+    "score": 0.4136671582487992
+  },
+  {
+    "params": [
+      3,
+      186,
+      117,
+      40,
+      255,
+      255,
+      0,
+      64,
+      102,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8791208791208791,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9395509499136442,
+      "./new_images/cone (8).jpg": 0.9001207331796729,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.4136639664660396
+  },
+  {
+    "params": [
+      3,
+      186,
+      117,
+      40,
+      255,
+      255,
+      0,
+      64,
+      102,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8653175157013259,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9367872271098078,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9395509499136442,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.41344012045510936
+  },
+  {
+    "params": [
+      0,
+      186,
+      123,
+      37,
+      255,
+      255,
+      0,
+      67,
+      99,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.851509335194556,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9395509499136442,
+      "./new_images/cone (8).jpg": 0.924056338028169,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.4131399077295825
+  },
+  {
+    "params": [
+      0,
+      183,
+      123,
+      40,
+      255,
+      255,
+      0,
+      64,
+      99,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8791208791208791,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9331046312178388,
+      "./new_images/cone (8).jpg": 0.9001207331796729,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.41300138874868353
+  },
+  {
+    "params": [
+      0,
+      186,
+      123,
+      40,
+      255,
+      255,
+      0,
+      64,
+      99,
+      10,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8653175157013259,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9367872271098078,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9331046312178388,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.937178166838311,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.4127775427377533
+  },
+  {
+    "params": [
+      3,
+      189,
+      129,
+      37,
+      255,
+      255,
+      3,
+      67,
+      96,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.851509335194556,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9331046312178388,
+      "./new_images/cone (8).jpg": 0.924056338028169,
+      "./new_images/cone (9).jpg": 0.9353158832396875,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.41272447761486103
+  },
+  {
+    "params": [
+      3,
+      189,
+      129,
+      37,
+      255,
+      255,
+      0,
+      67,
+      93,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.851509335194556,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9331046312178388,
+      "./new_images/cone (8).jpg": 0.924056338028169,
+      "./new_images/cone (9).jpg": 0.9285714285714286,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.41238725488144806
+  },
+  {
+    "params": [
+      3,
+      186,
+      129,
+      37,
+      255,
+      255,
+      0,
+      70,
+      93,
+      13,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.851509335194556,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.891987557653116,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.41210172353316
+  },
+  {
+    "params": [
+      3,
+      189,
+      129,
+      37,
+      255,
+      255,
+      0,
+      70,
+      96,
+      16,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.851509335194556,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.4097249032518725
+  },
+  {
+    "params": [
+      3,
+      192,
+      129,
+      34,
+      255,
+      255,
+      0,
+      73,
+      96,
+      19,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.837696335078534,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9519432773109243,
+      "./new_images/cone (6).jpg": 0.9591933636846074,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.4095993981889687
+  },
+  {
+    "params": [
+      0,
+      192,
+      129,
+      34,
+      255,
+      255,
+      0,
+      73,
+      93,
+      19,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.837696335078534,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9519432773109243,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.40939399203994703
+  },
+  {
+    "params": [
+      0,
+      192,
+      129,
+      34,
+      255,
+      255,
+      0,
+      73,
+      87,
+      19,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.837696335078534,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9447485014334115,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8957326892109501
+    },
+    "score": 0.40903425324607146
+  },
+  {
+    "params": [
+      0,
+      189,
+      132,
+      34,
+      255,
+      255,
+      0,
+      76,
+      87,
+      16,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.837696335078534,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9229493756153169,
+      "./new_images/cone (5).jpg": 0.9367872271098078,
+      "./new_images/cone (6).jpg": 0.9550852407041744,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9174084507042254,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8738593666129898
+    },
+    "score": 0.40754252339999325
+  },
+  {
+    "params": [
+      0,
+      189,
+      129,
+      34,
+      255,
+      255,
+      0,
+      79,
+      87,
+      19,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8465608465608465,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9154316509482848,
+      "./new_images/cone (5).jpg": 0.9367872271098078,
+      "./new_images/cone (6).jpg": 0.9489625632752963,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9096338028169014,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8620504562533549
+    },
+    "score": 0.4063245509569654
+  },
+  {
+    "params": [
+      0,
+      189,
+      129,
+      34,
+      255,
+      255,
+      0,
+      79,
+      90,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8465608465608465,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9154316509482848,
+      "./new_images/cone (5).jpg": 0.9367872271098078,
+      "./new_images/cone (6).jpg": 0.9489625632752963,
+      "./new_images/cone (7).jpg": 0.9186299176578225,
+      "./new_images/cone (8).jpg": 0.9018591549295775,
+      "./new_images/cone (9).jpg": 0.9439834024896265,
+      "./new_images/cone (10).jpg": 0.8620504562533549
+    },
+    "score": 0.40593581856259914
+  },
+  {
+    "params": [
+      0,
+      192,
+      132,
+      34,
+      255,
+      255,
+      0,
+      82,
+      87,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.844451152027367,
+      "./new_images/cone (4).jpg": 0.9154316509482848,
+      "./new_images/cone (5).jpg": 0.9288228392647634,
+      "./new_images/cone (6).jpg": 0.9530180721208905,
+      "./new_images/cone (7).jpg": 0.9110145259064394,
+      "./new_images/cone (8).jpg": 0.9096338028169014,
+      "./new_images/cone (9).jpg": 0.935251798561151,
+      "./new_images/cone (10).jpg": 0.8502415458937198
+    },
+    "score": 0.4040158443328842
+  },
+  {
+    "params": [
+      0,
+      192,
+      132,
+      34,
+      255,
+      255,
+      0,
+      85,
+      87,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8345758613741688,
+      "./new_images/cone (4).jpg": 0.9154316509482848,
+      "./new_images/cone (5).jpg": 0.9288228392647634,
+      "./new_images/cone (6).jpg": 0.9468420905611888,
+      "./new_images/cone (7).jpg": 0.9110145259064394,
+      "./new_images/cone (8).jpg": 0.9096338028169014,
+      "./new_images/cone (9).jpg": 0.9420289855072463,
+      "./new_images/cone (10).jpg": 0.8384326355340848
+    },
+    "score": 0.4029616945515622
+  },
+  {
+    "params": [
+      0,
+      192,
+      135,
+      31,
+      255,
+      255,
+      3,
+      85,
+      87,
+      25,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8345758613741688,
+      "./new_images/cone (4).jpg": 0.9079131471213142,
+      "./new_images/cone (5).jpg": 0.9357762017336485,
+      "./new_images/cone (6).jpg": 0.9468420905611888,
+      "./new_images/cone (7).jpg": 0.9110145259064394,
+      "./new_images/cone (8).jpg": 0.9096338028169014,
+      "./new_images/cone (9).jpg": 0.9399129580233048,
+      "./new_images/cone (10).jpg": 0.8266237251744498
+    },
+    "score": 0.4022371905914791
+  },
+  {
+    "params": [
+      0,
+      192,
+      135,
+      31,
+      255,
+      255,
+      3,
+      91,
+      87,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8345758613741688,
+      "./new_images/cone (4).jpg": 0.9079131471213142,
+      "./new_images/cone (5).jpg": 0.9357762017336485,
+      "./new_images/cone (6).jpg": 0.9406654188898511,
+      "./new_images/cone (7).jpg": 0.9172040534315984,
+      "./new_images/cone (8).jpg": 0.8964507042253521,
+      "./new_images/cone (9).jpg": 0.9309182813816343,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.4006592720513873
+  },
+  {
+    "params": [
+      0,
+      192,
+      135,
+      31,
+      255,
+      255,
+      0,
+      91,
+      87,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8345758613741688,
+      "./new_images/cone (4).jpg": 0.9079131471213142,
+      "./new_images/cone (5).jpg": 0.9288228392647634,
+      "./new_images/cone (6).jpg": 0.9406654188898511,
+      "./new_images/cone (7).jpg": 0.9110145259064394,
+      "./new_images/cone (8).jpg": 0.8964507042253521,
+      "./new_images/cone (9).jpg": 0.9399129580233048,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.40045186138376865
+  },
+  {
+    "params": [
+      0,
+      192,
+      132,
+      31,
+      255,
+      255,
+      3,
+      94,
+      87,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.824674669625744,
+      "./new_images/cone (4).jpg": 0.9079131471213142,
+      "./new_images/cone (5).jpg": 0.9357762017336485,
+      "./new_images/cone (6).jpg": 0.9406654188898511,
+      "./new_images/cone (7).jpg": 0.9172040534315984,
+      "./new_images/cone (8).jpg": 0.8964507042253521,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.399806166971127
+  },
+  {
+    "params": [
+      0,
+      186,
+      135,
+      31,
+      255,
+      255,
+      3,
+      94,
+      84,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8184821786143373,
+      "./new_images/cone (4).jpg": 0.9079131471213142,
+      "./new_images/cone (5).jpg": 0.9357762017336485,
+      "./new_images/cone (6).jpg": 0.9406654188898511,
+      "./new_images/cone (7).jpg": 0.9172040534315984,
+      "./new_images/cone (8).jpg": 0.89058039961941,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.3992030271902595
+  },
+  {
+    "params": [
+      0,
+      186,
+      135,
+      31,
+      255,
+      255,
+      3,
+      97,
+      84,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8373450783570624,
+      "./new_images/cone (4).jpg": 0.89287380150298,
+      "./new_images/cone (5).jpg": 0.9346258188314696,
+      "./new_images/cone (6).jpg": 0.9344880569911999,
+      "./new_images/cone (7).jpg": 0.9027465883572292,
+      "./new_images/cone (8).jpg": 0.89058039961941,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.39830494440271913
+  },
+  {
+    "params": [
+      0,
+      183,
+      135,
+      31,
+      255,
+      255,
+      3,
+      97,
+      81,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.824674669625744,
+      "./new_images/cone (4).jpg": 0.89287380150298,
+      "./new_images/cone (5).jpg": 0.9346258188314696,
+      "./new_images/cone (6).jpg": 0.9344880569911999,
+      "./new_images/cone (7).jpg": 0.9027465883572292,
+      "./new_images/cone (8).jpg": 0.8790674548367493,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.3970957767270201
+  },
+  {
+    "params": [
+      0,
+      183,
+      135,
+      31,
+      255,
+      255,
+      0,
+      97,
+      78,
+      22,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8324514991181657,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.824674669625744,
+      "./new_images/cone (4).jpg": 0.89287380150298,
+      "./new_images/cone (5).jpg": 0.9276894785235781,
+      "./new_images/cone (6).jpg": 0.9344880569911999,
+      "./new_images/cone (7).jpg": 0.8907448440429521,
+      "./new_images/cone (8).jpg": 0.8790674548367493,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.39614887249591174
+  },
+  {
+    "params": [
+      0,
+      186,
+      135,
+      31,
+      255,
+      255,
+      0,
+      100,
+      81,
+      25,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.818342151675485,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.824674669625744,
+      "./new_images/cone (4).jpg": 0.8853529594692651,
+      "./new_images/cone (5).jpg": 0.9276894785235781,
+      "./new_images/cone (6).jpg": 0.9302975275876519,
+      "./new_images/cone (7).jpg": 0.8907448440429521,
+      "./new_images/cone (8).jpg": 0.89058039961941,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.8172302737520128
+    },
+    "score": 0.3954334837910476
+  },
+  {
+    "params": [
+      0,
+      189,
+      138,
+      37,
+      255,
+      255,
+      0,
+      103,
+      84,
+      31,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.818342151675485,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8271123872026251,
+      "./new_images/cone (4).jpg": 0.8853529594692651,
+      "./new_images/cone (5).jpg": 0.9276894785235781,
+      "./new_images/cone (6).jpg": 0.924147179616126,
+      "./new_images/cone (7).jpg": 0.8907448440429521,
+      "./new_images/cone (8).jpg": 0.89058039961941,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.3942011533985295
+  },
+  {
+    "params": [
+      3,
+      180,
+      144,
+      31,
+      255,
+      255,
+      3,
+      106,
+      84,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.818342151675485,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8271123872026251,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9346258188314696,
+      "./new_images/cone (6).jpg": 0.924147179616126,
+      "./new_images/cone (7).jpg": 0.8960096735187424,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.3938052510123934
+  },
+  {
+    "params": [
+      3,
+      180,
+      147,
+      34,
+      255,
+      255,
+      3,
+      106,
+      81,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.818342151675485,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9346258188314696,
+      "./new_images/cone (6).jpg": 0.924147179616126,
+      "./new_images/cone (7).jpg": 0.8960096735187424,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.39349380018472707
+  },
+  {
+    "params": [
+      3,
+      177,
+      141,
+      34,
+      255,
+      255,
+      3,
+      109,
+      78,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.818342151675485,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9264160931709899,
+      "./new_images/cone (6).jpg": 0.924147179616126,
+      "./new_images/cone (7).jpg": 0.8960096735187424,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.39308331390170304
+  },
+  {
+    "params": [
+      3,
+      177,
+      141,
+      34,
+      255,
+      255,
+      3,
+      112,
+      78,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8042328042328042,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9182052809211833,
+      "./new_images/cone (6).jpg": 0.9199843544827201,
+      "./new_images/cone (7).jpg": 0.8960096735187424,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.3917591646604084
+  },
+  {
+    "params": [
+      0,
+      177,
+      153,
+      34,
+      255,
+      255,
+      3,
+      112,
+      75,
+      40,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8042328042328042,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9115096570752858,
+      "./new_images/cone (6).jpg": 0.9161704969116911,
+      "./new_images/cone (7).jpg": 0.8960096735187424,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.39123369058956203
+  },
+  {
+    "params": [
+      0,
+      177,
+      156,
+      40,
+      255,
+      255,
+      0,
+      112,
+      75,
+      40,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.8042328042328042,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9115096570752858,
+      "./new_images/cone (6).jpg": 0.9161704969116911,
+      "./new_images/cone (7).jpg": 0.8900137268359644,
+      "./new_images/cone (8).jpg": 0.8765252434792343,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7962962962962963
+    },
+    "score": 0.39093389325542316
+  },
+  {
+    "params": [
+      0,
+      177,
+      156,
+      40,
+      255,
+      255,
+      0,
+      115,
+      75,
+      40,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7901234567901234,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8208833706492977,
+      "./new_images/cone (4).jpg": 0.8792888981030372,
+      "./new_images/cone (5).jpg": 0.9115096570752858,
+      "./new_images/cone (6).jpg": 0.9199843544827201,
+      "./new_images/cone (7).jpg": 0.8900137268359644,
+      "./new_images/cone (8).jpg": 0.8690176322418136,
+      "./new_images/cone (9).jpg": 0.9237573715248526,
+      "./new_images/cone (10).jpg": 0.7155126140633387
+    },
+    "score": 0.3860045540883217
+  },
+  {
+    "params": [
+      3,
+      171,
+      156,
+      40,
+      255,
+      255,
+      0,
+      118,
+      75,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7901234567901234,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8107805176278785,
+      "./new_images/cone (4).jpg": 0.8718187943813819,
+      "./new_images/cone (5).jpg": 0.9115096570752858,
+      "./new_images/cone (6).jpg": 0.9158215293493142,
+      "./new_images/cone (7).jpg": 0.8900137268359644,
+      "./new_images/cone (8).jpg": 0.8690176322418136,
+      "./new_images/cone (9).jpg": 0.9148293778963629,
+      "./new_images/cone (10).jpg": 0.7155126140633387
+    },
+    "score": 0.3844713653130732
+  },
+  {
+    "params": [
+      3,
+      171,
+      156,
+      40,
+      255,
+      255,
+      0,
+      121,
+      72,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7619047619047619,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.835031432907002,
+      "./new_images/cone (4).jpg": 0.8643479162347086,
+      "./new_images/cone (5).jpg": 0.9182052809211833,
+      "./new_images/cone (6).jpg": 0.9158215293493142,
+      "./new_images/cone (7).jpg": 0.8674905595605904,
+      "./new_images/cone (8).jpg": 0.8690176322418136,
+      "./new_images/cone (9).jpg": 0.9148293778963629,
+      "./new_images/cone (10).jpg": 0.7155126140633387
+    },
+    "score": 0.38310805525395375
+  },
+  {
+    "params": [
+      3,
+      171,
+      156,
+      40,
+      255,
+      255,
+      0,
+      124,
+      72,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7245149911816579,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.835031432907002,
+      "./new_images/cone (4).jpg": 0.8568762635425846,
+      "./new_images/cone (5).jpg": 0.9099933818663137,
+      "./new_images/cone (6).jpg": 0.9158215293493142,
+      "./new_images/cone (7).jpg": 0.8599794003204395,
+      "./new_images/cone (8).jpg": 0.8690176322418136,
+      "./new_images/cone (9).jpg": 0.9148293778963629,
+      "./new_images/cone (10).jpg": 0.7155126140633387
+    },
+    "score": 0.3800788311684414
+  },
+  {
+    "params": [
+      3,
+      174,
+      156,
+      40,
+      255,
+      255,
+      0,
+      127,
+      72,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7105820105820105,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.835031432907002,
+      "./new_images/cone (4).jpg": 0.8568762635425846,
+      "./new_images/cone (5).jpg": 0.9017803957905884,
+      "./new_images/cone (6).jpg": 0.9196498709460218,
+      "./new_images/cone (7).jpg": 0.8655762253066867,
+      "./new_images/cone (8).jpg": 0.8615091804746977,
+      "./new_images/cone (9).jpg": 0.9077376772925151,
+      "./new_images/cone (10).jpg": 0.6729736983360172
+    },
+    "score": 0.3765858377589062
+  },
+  {
+    "params": [
+      3,
+      171,
+      153,
+      37,
+      255,
+      255,
+      3,
+      130,
+      66,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.7015873015873015,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8415993008520866,
+      "./new_images/cone (4).jpg": 0.8568762635425846,
+      "./new_images/cone (5).jpg": 0.9083333333333333,
+      "./new_images/cone (6).jpg": 0.9154696442599035,
+      "./new_images/cone (7).jpg": 0.8579656721575856,
+      "./new_images/cone (8).jpg": 0.8670422535211267,
+      "./new_images/cone (9).jpg": 0.9077376772925151,
+      "./new_images/cone (10).jpg": 0.6729736983360172
+    },
+    "score": 0.37647925724412273
+  },
+  {
+    "params": [
+      3,
+      171,
+      147,
+      37,
+      255,
+      255,
+      0,
+      133,
+      69,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6878306878306878,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8415993008520866,
+      "./new_images/cone (4).jpg": 0.8419306340401265,
+      "./new_images/cone (5).jpg": 0.8935663224781573,
+      "./new_images/cone (6).jpg": 0.9154696442599035,
+      "./new_images/cone (7).jpg": 0.8579656721575856,
+      "./new_images/cone (8).jpg": 0.8670422535211267,
+      "./new_images/cone (9).jpg": 0.8900126422250316,
+      "./new_images/cone (10).jpg": 0.6159420289855072
+    },
+    "score": 0.37056795931751063
+  },
+  {
+    "params": [
+      3,
+      171,
+      150,
+      37,
+      255,
+      255,
+      0,
+      136,
+      69,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.674074074074074,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8415993008520866,
+      "./new_images/cone (4).jpg": 0.8419306340401265,
+      "./new_images/cone (5).jpg": 0.9,
+      "./new_images/cone (6).jpg": 0.9154696442599035,
+      "./new_images/cone (7).jpg": 0.8579656721575856,
+      "./new_images/cone (8).jpg": 0.8594366197183099,
+      "./new_images/cone (9).jpg": 0.863406408094435,
+      "./new_images/cone (10).jpg": 0.5931293612453032
+    },
+    "score": 0.3673505857220912
+  },
+  {
+    "params": [
+      3,
+      171,
+      150,
+      37,
+      255,
+      255,
+      0,
+      139,
+      69,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.674074074074074,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8301824937165337,
+      "./new_images/cone (4).jpg": 0.8344566569888013,
+      "./new_images/cone (5).jpg": 0.9,
+      "./new_images/cone (6).jpg": 0.9112894175737852,
+      "./new_images/cone (7).jpg": 0.8579656721575856,
+      "./new_images/cone (8).jpg": 0.851830985915493,
+      "./new_images/cone (9).jpg": 0.863406408094435,
+      "./new_images/cone (10).jpg": 0.5817230273752013
+    },
+    "score": 0.36524643679479546
+  },
+  {
+    "params": [
+      3,
+      171,
+      150,
+      40,
+      255,
+      255,
+      0,
+      139,
+      66,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.674074074074074,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8301824937165337,
+      "./new_images/cone (4).jpg": 0.8344566569888013,
+      "./new_images/cone (5).jpg": 0.9,
+      "./new_images/cone (6).jpg": 0.9112894175737852,
+      "./new_images/cone (7).jpg": 0.8524665216893671,
+      "./new_images/cone (8).jpg": 0.851830985915493,
+      "./new_images/cone (9).jpg": 0.863406408094435,
+      "./new_images/cone (10).jpg": 0.5817230273752013
+    },
+    "score": 0.36497147927138457
+  },
+  {
+    "params": [
+      3,
+      171,
+      150,
+      40,
+      255,
+      255,
+      0,
+      142,
+      66,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6603174603174603,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8301824937165337,
+      "./new_images/cone (4).jpg": 0.8344566569888013,
+      "./new_images/cone (5).jpg": 0.8833333333333333,
+      "./new_images/cone (6).jpg": 0.9051987767584098,
+      "./new_images/cone (7).jpg": 0.8198997522613355,
+      "./new_images/cone (8).jpg": 0.851830985915493,
+      "./new_images/cone (9).jpg": 0.863406408094435,
+      "./new_images/cone (10).jpg": 0.5817230273752013
+    },
+    "score": 0.36151744473805014
+  },
+  {
+    "params": [
+      3,
+      165,
+      150,
+      37,
+      255,
+      255,
+      0,
+      145,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6603174603174603,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8301824937165337,
+      "./new_images/cone (4).jpg": 0.8269819049100431,
+      "./new_images/cone (5).jpg": 0.8597333333333333,
+      "./new_images/cone (6).jpg": 0.899107794175411,
+      "./new_images/cone (7).jpg": 0.8122839363908735,
+      "./new_images/cone (8).jpg": 0.851830985915493,
+      "./new_images/cone (9).jpg": 0.8545326774420239,
+      "./new_images/cone (10).jpg": 0.5703166935050993
+    },
+    "score": 0.3582643639853135
+  },
+  {
+    "params": [
+      3,
+      165,
+      150,
+      37,
+      255,
+      255,
+      0,
+      148,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6518518518518519,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8187581985133362,
+      "./new_images/cone (4).jpg": 0.8138546095613398,
+      "./new_images/cone (5).jpg": 0.8528,
+      "./new_images/cone (6).jpg": 0.899107794175411,
+      "./new_images/cone (7).jpg": 0.797049671545465,
+      "./new_images/cone (8).jpg": 0.844225352112676,
+      "./new_images/cone (9).jpg": 0.8478566408995081,
+      "./new_images/cone (10).jpg": 0.5703166935050993
+    },
+    "score": 0.35479104060823435
+  },
+  {
+    "params": [
+      3,
+      165,
+      150,
+      37,
+      255,
+      255,
+      0,
+      148,
+      75,
+      40,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6518518518518519,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8187581985133362,
+      "./new_images/cone (4).jpg": 0.8138546095613398,
+      "./new_images/cone (5).jpg": 0.8528,
+      "./new_images/cone (6).jpg": 0.8747404455917841,
+      "./new_images/cone (7).jpg": 0.797049671545465,
+      "./new_images/cone (8).jpg": 0.844225352112676,
+      "./new_images/cone (9).jpg": 0.8478566408995081,
+      "./new_images/cone (10).jpg": 0.5703166935050993
+    },
+    "score": 0.35357267317905305
+  },
+  {
+    "params": [
+      0,
+      165,
+      150,
+      34,
+      255,
+      255,
+      0,
+      151,
+      78,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6518518518518519,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8187581985133362,
+      "./new_images/cone (4).jpg": 0.8138546095613398,
+      "./new_images/cone (5).jpg": 0.8446,
+      "./new_images/cone (6).jpg": 0.8747404455917841,
+      "./new_images/cone (7).jpg": 0.7456767350703251,
+      "./new_images/cone (8).jpg": 0.844225352112676,
+      "./new_images/cone (9).jpg": 0.8478566408995081,
+      "./new_images/cone (10).jpg": 0.5589103596349974
+    },
+    "score": 0.35002370966179097
+  },
+  {
+    "params": [
+      2,
+      156,
+      144,
+      34,
+      255,
+      255,
+      3,
+      154,
+      81,
+      31,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6518518518518519,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.8064298677728805,
+      "./new_images/cone (5).jpg": 0.8446,
+      "./new_images/cone (6).jpg": 0.853697703901958,
+      "./new_images/cone (7).jpg": 0.7346086956521739,
+      "./new_images/cone (8).jpg": 0.8077746478873239,
+      "./new_images/cone (9).jpg": 0.8446299702844206,
+      "./new_images/cone (10).jpg": 0.5523349436392915
+    },
+    "score": 0.3451627044431528
+  },
+  {
+    "params": [
+      2,
+      156,
+      147,
+      34,
+      255,
+      255,
+      3,
+      157,
+      81,
+      31,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6433862433862434,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.7841510216782491,
+      "./new_images/cone (5).jpg": 0.8364,
+      "./new_images/cone (6).jpg": 0.8352725736019158,
+      "./new_images/cone (7).jpg": 0.7269565217391304,
+      "./new_images/cone (8).jpg": 0.7926760563380282,
+      "./new_images/cone (9).jpg": 0.8089171974522293,
+      "./new_images/cone (10).jpg": 0.5410628019323671
+    },
+    "score": 0.3388074412000659
+  },
+  {
+    "params": [
+      2,
+      153,
+      147,
+      37,
+      255,
+      255,
+      3,
+      160,
+      81,
+      31,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.7841510216782491,
+      "./new_images/cone (5).jpg": 0.8282,
+      "./new_images/cone (6).jpg": 0.8352725736019158,
+      "./new_images/cone (7).jpg": 0.7116521739130435,
+      "./new_images/cone (8).jpg": 0.771774647887324,
+      "./new_images/cone (9).jpg": 0.7910532276330691,
+      "./new_images/cone (10).jpg": 0.5410628019323671
+    },
+    "score": 0.33435356688821366
+  },
+  {
+    "params": [
+      2,
+      153,
+      147,
+      34,
+      255,
+      255,
+      3,
+      163,
+      72,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.6800913431596429,
+      "./new_images/cone (5).jpg": 0.8282,
+      "./new_images/cone (6).jpg": 0.8320844208694675,
+      "./new_images/cone (7).jpg": 0.6198260869565217,
+      "./new_images/cone (8).jpg": 0.7775774647887324,
+      "./new_images/cone (9).jpg": 0.7331737538721487,
+      "./new_images/cone (10).jpg": 0.534621578099839
+    },
+    "score": 0.3214739769432328
+  },
+  {
+    "params": [
+      2,
+      153,
+      147,
+      34,
+      255,
+      255,
+      3,
+      163,
+      75,
+      34,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.6800913431596429,
+      "./new_images/cone (5).jpg": 0.8282,
+      "./new_images/cone (6).jpg": 0.7984223130018312,
+      "./new_images/cone (7).jpg": 0.6198260869565217,
+      "./new_images/cone (8).jpg": 0.7775774647887324,
+      "./new_images/cone (9).jpg": 0.7331737538721487,
+      "./new_images/cone (10).jpg": 0.534621578099839
+    },
+    "score": 0.31979087154985103
+  },
+  {
+    "params": [
+      2,
+      153,
+      147,
+      31,
+      255,
+      255,
+      3,
+      166,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.6800913431596429,
+      "./new_images/cone (5).jpg": 0.8066666666666666,
+      "./new_images/cone (6).jpg": 0.8161329254259171,
+      "./new_images/cone (7).jpg": 0.6121739130434782,
+      "./new_images/cone (8).jpg": 0.7171830985915493,
+      "./new_images/cone (9).jpg": 0.7243346007604563,
+      "./new_images/cone (10).jpg": 0.534621578099839
+    },
+    "score": 0.3157554508432927
+  },
+  {
+    "params": [
+      5,
+      153,
+      147,
+      31,
+      255,
+      255,
+      3,
+      166,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.8073264078731547,
+      "./new_images/cone (4).jpg": 0.6800913431596429,
+      "./new_images/cone (5).jpg": 0.8066666666666666,
+      "./new_images/cone (6).jpg": 0.8161329254259171,
+      "./new_images/cone (7).jpg": 0.6121739130434782,
+      "./new_images/cone (8).jpg": 0.7096338028169014,
+      "./new_images/cone (9).jpg": 0.7243346007604563,
+      "./new_images/cone (10).jpg": 0.534621578099839
+    },
+    "score": 0.3153779860545603
+  },
+  {
+    "params": [
+      2,
+      153,
+      144,
+      34,
+      255,
+      255,
+      3,
+      169,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.61657848324515,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7958871144169766,
+      "./new_images/cone (4).jpg": 0.672652722271241,
+      "./new_images/cone (5).jpg": 0.7663333333333333,
+      "./new_images/cone (6).jpg": 0.7947598253275109,
+      "./new_images/cone (7).jpg": 0.6121739130434782,
+      "./new_images/cone (8).jpg": 0.6567887323943662,
+      "./new_images/cone (9).jpg": 0.7195467422096318,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.307910224739889
+  },
+  {
+    "params": [
+      5,
+      153,
+      147,
+      34,
+      255,
+      255,
+      3,
+      172,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6084656084656085,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7884489170859769,
+      "./new_images/cone (4).jpg": 0.6440695561899819,
+      "./new_images/cone (5).jpg": 0.7421333333333333,
+      "./new_images/cone (6).jpg": 0.7947598253275109,
+      "./new_images/cone (7).jpg": 0.6121739130434782,
+      "./new_images/cone (8).jpg": 0.6144225352112676,
+      "./new_images/cone (9).jpg": 0.7016574585635359,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.3014807387888393
+  },
+  {
+    "params": [
+      2,
+      153,
+      147,
+      34,
+      255,
+      255,
+      3,
+      172,
+      75,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6084656084656085,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7884489170859769,
+      "./new_images/cone (4).jpg": 0.6440695561899819,
+      "./new_images/cone (5).jpg": 0.7421333333333333,
+      "./new_images/cone (6).jpg": 0.7825327510917031,
+      "./new_images/cone (7).jpg": 0.6075362318840579,
+      "./new_images/cone (8).jpg": 0.6144225352112676,
+      "./new_images/cone (9).jpg": 0.7016574585635359,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.3006375010190779
+  },
+  {
+    "params": [
+      5,
+      153,
+      150,
+      43,
+      255,
+      255,
+      2,
+      175,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.6084656084656085,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7771090928985666,
+      "./new_images/cone (4).jpg": 0.6367836378737541,
+      "./new_images/cone (5).jpg": 0.7340666666666666,
+      "./new_images/cone (6).jpg": 0.7947598253275109,
+      "./new_images/cone (7).jpg": 0.6121739130434782,
+      "./new_images/cone (8).jpg": 0.5994366197183099,
+      "./new_images/cone (9).jpg": 0.6961325966850829,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.2991205794617535
+  },
+  {
+    "params": [
+      5,
+      153,
+      147,
+      43,
+      255,
+      255,
+      2,
+      178,
+      72,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.5952380952380952,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7771090928985666,
+      "./new_images/cone (4).jpg": 0.6367836378737541,
+      "./new_images/cone (5).jpg": 0.704,
+      "./new_images/cone (6).jpg": 0.7947598253275109,
+      "./new_images/cone (7).jpg": 0.5968695652173913,
+      "./new_images/cone (8).jpg": 0.5949295774647887,
+      "./new_images/cone (9).jpg": 0.6961325966850829,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.2959653009630641
+  },
+  {
+    "params": [
+      5,
+      150,
+      147,
+      43,
+      255,
+      255,
+      2,
+      178,
+      75,
+      37,
+      255,
+      255
+    ],
+    "scores": {
+      "./new_images/cone (1).jpg": 0.5952380952380952,
+      "./new_images/cone (2).jpg": 0.0,
+      "./new_images/cone (3).jpg": 0.7771090928985666,
+      "./new_images/cone (4).jpg": 0.6367836378737541,
+      "./new_images/cone (5).jpg": 0.704,
+      "./new_images/cone (6).jpg": 0.7825327510917031,
+      "./new_images/cone (7).jpg": 0.5968695652173913,
+      "./new_images/cone (8).jpg": 0.5949295774647887,
+      "./new_images/cone (9).jpg": 0.6961325966850829,
+      "./new_images/cone (10).jpg": 0.5234836285560923
+    },
+    "score": 0.29535394725127373
+  }
+]
