@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 
-
 def _get_mask(bev_img):
     # color: white pixels
     img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
@@ -16,7 +15,7 @@ def _get_mask(bev_img):
     sx = cv2.GaussianBlur(sx, (15, 15), 0)
     sy = cv2.GaussianBlur(sy, (15, 15), 0)
 
-    # can change coeff value
+    # can change coeff value of sy
     vertical_mask = np.uint8(sx > 1.2 * sy) * 255
 
     mask = cv2.bitwise_and(color_mask, vertical_mask)
@@ -25,7 +24,53 @@ def _get_mask(bev_img):
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,   kernel, iterations=1)
     mask = cv2.morphologyEx(mask, cv2.MORPH_DILATE, kernel, iterations=2)
 
-    return mask
+    return mask, None
+
+
+def _get_mask_contour(bev_img):
+    gray_uint8 = cv2.cvtColor(bev_img, cv2.COLOR_BGR2GRAY)
+
+    # color mask. white pixels
+    img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
+    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 180]), np.array([180, 60, 255]))
+
+    # Sobel filter to only keep vertical features.
+    # Blur the Sobel responses over a neighbourhood so interior pixels of
+    # vertical line also register as vertical, then keep where sobelx > sobely.
+    gray_f = gray_uint8.astype(np.float32)
+    sx = np.abs(cv2.Sobel(gray_f, cv2.CV_32F, 1, 0, ksize=3))
+    sy = np.abs(cv2.Sobel(gray_f, cv2.CV_32F, 0, 1, ksize=3))
+    sx = cv2.GaussianBlur(sx, (15, 15), 0)
+    sy = cv2.GaussianBlur(sy, (15, 15), 0)
+    vertical_mask = np.uint8(sx > 1.2 * sy) * 255
+
+    # Combine color + direction before contour analysis so horizontal
+    # crossing lines are already removed and won't merge contours with vertical
+    # lanes
+
+    pre_mask = cv2.bitwise_and(color_mask, vertical_mask)
+
+    # contour filter on the already vertical image to reject lane numbers.
+    contours, _ = cv2.findContours(pre_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    filtered = []
+    for contour in contours:
+        _, (w, h), _ = cv2.minAreaRect(contour)
+        if h == 0:
+            continue
+        aspect_ratio = float(w) / h
+        #reject bounding boxes that are not thin and long
+        if aspect_ratio < 1/8 or aspect_ratio > 8:
+            filtered.append(contour)
+
+    contour_mask = np.zeros_like(gray_uint8)
+    cv2.drawContours(contour_mask, filtered, -1, 255, thickness=cv2.FILLED)
+    mask = cv2.bitwise_and(pre_mask, contour_mask)
+
+    kernel = np.ones((3, 3), np.uint8)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,   kernel, iterations=1)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_DILATE, kernel, iterations=2)
+
+    return mask, filtered
 
 
 def _find_histogram_peaks(histogram, min_separation):
@@ -97,35 +142,38 @@ LANE_WIDTH_M = 1.1          # expected track lane width in metres
 INCHES_PER_M = 1.0 / 0.0254
 
 
-def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
+def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=False):
     """
-    bev_w  – pixel width of the BEV image (defaults to img width)
-    y_min/y_max – real-world Y range in inches that spans bev_w pixels
+    bev_w  - pixel width of the BEV image (defaults to img width)
+    y_min/y_max - real-world Y range in inches that spans bev_w pixels
                   (y_min is rightmost edge, y_max is leftmost edge)
     """
-    mask = _get_mask(bev_img)
+
+    mask , _ = _get_mask(bev_img)
+    if use_contour:
+        mask,_  = _get_mask_contour(bev_img)
 
     h, w = mask.shape
     if bev_w is None:
         bev_w = w
 
-    # Half-lane offset in pixels:  0.5 m → inches → fraction of Y range → pixels
+    #half lane width in pixels
     half_lane_in = LANE_WIDTH_M * INCHES_PER_M / 2.0        # inches
     half_lane_px = int(half_lane_in / (y_max - y_min) * bev_w)
-    print(f"half_lane_px={half_lane_px}  (={half_lane_in:.1f} in / {y_max - y_min} in * {bev_w} px)")
 
-    # --- base detection: find two best-separated peaks anywhere in the image ---
+    # base detection: find two best-separated peaks anywhere in the image
     # This handles the case where the car is at an angle and both lines are on
     # the same side of the image center.
-    histogram = np.sum(mask[h // 3:, :], axis=0)
+    histogram = np.sum(mask[h// 4:, :], axis=0)
     peak_left_x, peak_right_x = _find_histogram_peaks(histogram, min_separation=half_lane_px)
 
+    print(f"Before peak_left_x={peak_left_x}, peak_right_x={peak_right_x}")
     if peak_left_x is None:
-        # No signal at all
+        # No signal
         left_x = right_x = w // 2
     elif peak_right_x is None:
-        # Only one peak found — decide if it is the left or right lane by
-        # comparing to the image centre.
+        # Only one peak found —> decide if it is the left or right lane by
+        # comparing to the image center.
         if peak_left_x < w // 2:
             left_x  = peak_left_x
             right_x = peak_left_x + half_lane_px  # guess right base
@@ -135,6 +183,7 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
     else:
         left_x  = peak_left_x
         right_x = peak_right_x
+    print(f"After peak_left_x={peak_left_x}, peak_right_x={peak_right_x}")
 
     # Clamp to valid image range
     left_x  = int(np.clip(left_x,  0, w - 1))
@@ -146,40 +195,43 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
     right_fit, right_xs, right_ys = _sliding_window_fit(mask, right_x)
 
     # --- CCW curvature check ---
-    # For a counter-clockwise track all curves bend left → a ≤ 0.
-    # A clearly positive 'a' means the fit captured noise/wrong structure.
-    MAX_CURVATURE = 1e-3
+    # all curves should bend left -> a < 0.
+    # ignore crazy bends -> most likely errorneous
+    # A positive 'a' means the fit captured noise/wrong structure.
+    MAX_CURVATURE = 5e-4
     discarded_fit = None
-    if left_fit is not None and (abs(left_fit[0]) > MAX_CURVATURE or left_fit[0] > 0):
+    if left_fit is not None and (abs(left_fit[0]) > MAX_CURVATURE or left_fit[0] > 5e-5):
         print(f"[DISCARD] left_fit: curvature too big or positive "
-              f"(a={left_fit[0]:.2e} > max {MAX_CURVATURE:.2e}")
+              f"(a={left_fit[0]:.2e}, max magnitude {MAX_CURVATURE:.2e}, above 5e-5)")
         discarded_fit = left_fit
         left_fit, left_xs, left_ys = None, [], []
-    if right_fit is not None and (abs(right_fit[0]) > MAX_CURVATURE or right_fit[0] > 0):
+        print(f"discarded fit {discarded_fit}")
+    if right_fit is not None and (abs(right_fit[0]) > MAX_CURVATURE or right_fit[0] > 5e-5):
         print(f"[DISCARD] right_fit: curvature too big or positive "
-              f"(a={right_fit[0]:.2e} > max {MAX_CURVATURE:.2e}")
+              f"(a={right_fit[0]:.2e}, max magnitude {MAX_CURVATURE:.2e}, above 5e-5)")
         if discarded_fit is None:
             discarded_fit = right_fit
+            print(f"discarded fit {discarded_fit}")
         right_fit, right_xs, right_ys = None, [], []
 
-    # --- curvature mismatch: keep the fit with more support ---
+    # curvature mismatch: keep the fit with more supporting pixels
     if left_fit is not None and right_fit is not None:
         if abs(left_fit[0] - right_fit[0]) > 0.001:
             if len(left_xs) >= len(right_xs):
                 print(f"[DISCARD] right_fit: curvature mismatch with left "
-                      f"(Δa={abs(left_fit[0]-right_fit[0]):.2e} > 0.001), "
+                      f"(delta a={abs(left_fit[0]-right_fit[0]):.2e} > 0.001), "
                       f"left has more points ({len(left_xs)} vs {len(right_xs)})")
                 discarded_fit = right_fit
                 right_fit, right_xs, right_ys = None, [], []
             else:
                 print(f"[DISCARD] left_fit: curvature mismatch with right "
-                      f"(Δa={abs(left_fit[0]-right_fit[0]):.2e} > 0.001), "
+                      f"(delta={abs(left_fit[0]-right_fit[0]):.2e} > 0.001), "
                       f"right has more points ({len(right_xs)} vs {len(left_xs)})")
                 discarded_fit = left_fit
                 left_fit, left_xs, left_ys = None, [], []
 
-    # --- lane-width sanity check ---
-    # Both fits present but the detected lines are implausibly close or far apart.
+    # lane-width sanity check
+    # Both fits present but the detected lines are too close or too far apart.
     if left_fit is not None and right_fit is not None:
         y_bottom_tmp = h - 1
         bx_l = int(np.polyval(left_fit,  y_bottom_tmp))
@@ -201,7 +253,7 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
         else:
             print(f"[OK] lane width {lane_width_m:.2f} m")
 
-    # --- compute center ---
+    #  compute center
     y_bottom = h - 1
     if left_fit is not None and right_fit is not None:
         bottom_x_left   = int(np.polyval(left_fit,  y_bottom))
@@ -209,14 +261,14 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
         bottom_x_center = (bottom_x_left + bottom_x_right) // 2
         center_fit = (left_fit + right_fit) / 2
     elif left_fit is not None:
-        # left line found → center is half a lane to the right
+        # left line found -> center is half a lane to the right
         bottom_x_left   = int(np.polyval(left_fit, y_bottom))
         bottom_x_right  = None
         bottom_x_center = bottom_x_left + half_lane_px
         center_fit = left_fit.copy()
         center_fit[2] += half_lane_px
     elif right_fit is not None:
-        # right line found → center is half a lane to the left
+        # right line found -> center is half a lane to the left
         bottom_x_left   = None
         bottom_x_right  = int(np.polyval(right_fit, y_bottom))
         bottom_x_center = bottom_x_right - half_lane_px
@@ -227,13 +279,15 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80):
         center_fit = None
 
     debug = _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
-                        left_xs, left_ys, right_xs, right_ys, bottom_x_center, discarded_fit)
+                        left_xs, left_ys, right_xs, right_ys, bottom_x_center, discarded_fit,
+                        histogram, peak_left_x, peak_right_x)
 
     return mask, left_fit, right_fit, center_fit, bottom_x_left, bottom_x_right, bottom_x_center, debug
 
 
 def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
-                left_xs, left_ys, right_xs, right_ys, center_x, discarded_fit=None):
+                left_xs, left_ys, right_xs, right_ys, center_x, discarded_fit=None,
+                histogram=None, peak_left_x=None, peak_right_x=None):
     vis = bev_img.copy()
     h, w = vis.shape[:2]
 
@@ -266,5 +320,17 @@ def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
 
     if center_x is not None:
         cv2.line(vis, (center_x, 0), (center_x, h), (0, 255, 255), 2)
+
+    if histogram is not None:
+        HIST_H = 120
+        hist_img = np.zeros((HIST_H, w, 3), dtype=np.uint8)
+        norm = (histogram / (histogram.max() + 1e-6) * (HIST_H - 10)).astype(int)
+        for x, val in enumerate(norm):
+            cv2.line(hist_img, (x, HIST_H - 1), (x, HIST_H - 1 - val), (255, 255, 255), 1)
+        if peak_left_x is not None:
+            cv2.line(hist_img, (peak_left_x,  0), (peak_left_x,  HIST_H - 1), (255, 0, 0), 2)
+        if peak_right_x is not None:
+            cv2.line(hist_img, (peak_right_x, 0), (peak_right_x, HIST_H - 1), (0, 0, 255), 2)
+        vis = np.vstack([vis, hist_img])
 
     return vis
