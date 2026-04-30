@@ -16,17 +16,10 @@ from homography_transformer import PTS_IMAGE_PLANE, PTS_GROUND_PLANE
 # import your color segmentation algorithm; call this function in ros_image_callback!
 from visual_servoing.computer_vision.lane_color_segmentation import lane_segmentation
 
-
 class LaneDetector(Node):
     """
     A class for applying lane detection algorithms to the real robot.
     """
-
-    # max change in 'a' coefficient of center_fit between frames
-    MAX_A_DELTA = 0.002
-
-    right_lane = False
-    left_lane = False
 
 
     def __init__(self):
@@ -57,9 +50,6 @@ class LaneDetector(Node):
         pts_image = np.array(PTS_IMAGE_PLANE, dtype=np.float32)
         self.H, _ = cv2.findHomography(pts_image, pts_ground_bev.astype(np.float32))
 
-        # last accepted center_fit for temporal sanity check
-        self.last_center_fit = None
-
         self.get_logger().info("Lane Detector Initialized")
 
     def image_callback(self, image_msg):
@@ -80,15 +70,7 @@ class LaneDetector(Node):
                     f"Lane width {lane_width_m:.2f} m out of range, discarding left/right fits")
                 left_fit = right_fit = center_fit = None
 
-        # Temporal sanity check: discard center_fit if curvature changed too much
-        if center_fit is not None and self.last_center_fit is not None:
-            if abs(center_fit[0] - self.last_center_fit[0]) > self.MAX_A_DELTA:
-                self.get_logger().warn(
-                    f"center_fit curvature jump: {self.last_center_fit[0]:.4f} → {center_fit[0]:.4f}, discarding"
-                )
-                center_fit = self.last_center_fit
         if center_fit is not None:
-            self.last_center_fit = center_fit
             self.path_pub.publish(self._fit_to_path(center_fit, image_msg.header))
 
         debug_msg = self.bridge.cv2_to_imgmsg(debug, "bgr8")
