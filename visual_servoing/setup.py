@@ -27,9 +27,13 @@ setup(
         'console_scripts': [
             'parking_controller = visual_servoing.parking_controller:main',
             'cone_detector = visual_servoing.cone_detector:main',
+            'cone_detector_final_challenge_b = visual_servoing.cone_detector_final_challenge_b:main',
             'cone_sim_marker = visual_servoing.cone_sim_marker:main',
+            'cone_pub = visual_servoing.cone_pub:main',
             'homography_transformer = visual_servoing.homography_transformer:main',
             'yolo_annotator = visual_servoing.yolo_annotator:main',
+            'yolo_annotator_final_challenge_b = visual_servoing.yolo_annotator_final_challenge_b:main',
+            'lane_detector = visual_servoing.lane_detector:main',
         ],
     },
 )

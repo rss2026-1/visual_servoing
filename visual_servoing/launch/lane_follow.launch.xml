@@ -1,0 +1,6 @@
+<launch>
+  <node pkg="path_planning" name="lane_follower_pp" exec="lane_follower_pp" output="screen">
+    <param name="drive_topic" value="/vesc/low_level/input/navigation" />
+  </node>
+  <node pkg="visual_servoing" name="lane_detector" exec="lane_detector" output="screen"/>
+</launch>
