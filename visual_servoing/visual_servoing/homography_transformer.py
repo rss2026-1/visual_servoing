@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 '''
-Run 
-    ros2 run visual_servoing homography_transformer 
+Run
+    ros2 run visual_servoing homography_transformer
 and
     ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed
 and
@@ -34,11 +34,19 @@ from geometry_msgs.msg import Point
 
 ######################################################
 # DUMMY POINTS -- ENTER YOUR MEASUREMENTS HERE
-PTS_IMAGE_PLANE = [[329,222],
-                   [252,220],
-                   [150, 253],
-                   [511,279]]  # dummy points
-# right is x, down is y 
+PTS_IMAGE_PLANE = [[331,173],
+                   [81,228],
+                   [509, 182],
+                   [247,171],
+                   [92,182],
+                   [490,170],
+                   [187,195],
+                   [148,177],
+                   [485,234],
+                   [147,260],
+                   [445,200],
+                   [414,178]]  # dummy points
+# right is x, down is y
 ######################################################
 
 # PTS_GROUND_PLANE units are in inches
@@ -46,10 +54,18 @@ PTS_IMAGE_PLANE = [[329,222],
 
 ######################################################
 # DUMMY POINTS -- ENTER YOUR MEASUREMENTS HERE
-PTS_GROUND_PLANE = [[36,0],
-                    [36,8],
-                    [22.5, 12],
-                    [22,-12]]  # dummy points
+PTS_GROUND_PLANE = [[75,0],
+                    [26,22],
+                    [58.5, -29],
+                    [84.5,21.5],
+                    [58.5,44],
+                    [83.5,-38.5],
+                    [50.5,22],
+                    [83,44],
+                    [29,-11.5],
+                    [21.5,13.5],
+                    [45,-15],
+                    [76.5,-19.5]]  # dummy points
 # forwards is x, left is y
 ######################################################
 
@@ -93,7 +109,7 @@ class HomographyTransformer(Node):
         x, y = self.transformUvToXy(u, v)
         self.draw_marker(x, y, "base_link")
         self.get_logger().info(f"Clicked pixel ({u:.0f},{v:.0f}) → ground ({x:.3f}m, {y:.3f}m)")
-        
+
     def cone_detection_callback(self, msg):
         # Extract information from message
         u = msg.u

@@ -11,7 +11,7 @@ from sensor_msgs.msg import Image
 from geometry_msgs.msg import Point, PoseStamped
 from nav_msgs.msg import Path
 
-from homography_transformer import PTS_IMAGE_PLANE, PTS_GROUND_PLANE
+# from homography_transformer import PTS_IMAGE_PLANE, PTS_GROUND_PLANE
 
 # import your color segmentation algorithm; call this function in ros_image_callback!
 from visual_servoing.computer_vision.lane_color_segmentation import lane_segmentation
@@ -21,16 +21,13 @@ class LaneDetector(Node):
     A class for applying lane detection algorithms to the real robot.
     """
 
-
     def __init__(self):
         super().__init__("lane_detector")
-        # toggle line follower vs cone parker
-        self.LineFollower = False
-
         self.debug_pub = self.create_publisher(Image, "/bev_debug_img", 10)
         self.path_pub  = self.create_publisher(Path, "/lane_center_path", 10)
         self.image_sub = self.create_subscription(Image, "/zed/zed_node/rgb/image_rect_color", self.image_callback, 5)
         self.bridge = CvBridge()
+        self.debug_pub = self.create_publisher(Image, "/debug_img", 10)
 
         # BEV homography — computed once, reused every frame
         BEV_W, BEV_H = 1000, 500
@@ -41,6 +38,39 @@ class LaneDetector(Node):
         self.Y_MIN, self.Y_MAX = Y_MIN, Y_MAX
         self.car_bev_x = int((Y_MAX - 0) / (Y_MAX - Y_MIN) * BEV_W)
         self.car_bev_y = int((X_MAX - 0) / (X_MAX - X_MIN) * BEV_H)
+
+        PTS_IMAGE_PLANE = [[331,173],
+                   [81,228],
+                   [509, 182],
+                   [247,171],
+                   [92,182],
+                   [490,170],
+                   [187,195],
+                   [148,177],
+                   [485,234],
+                   [147,260],
+                   [445,200],
+                   [414,178]]  # dummy points
+# right is x, down is y
+######################################################
+
+# PTS_GROUND_PLANE units are in inches
+# car looks along positive x axis with positive y axis to left
+
+######################################################
+# DUMMY POINTS -- ENTER YOUR MEASUREMENTS HERE
+        PTS_GROUND_PLANE = [[75,0],
+                    [26,22],
+                    [58.5, -29],
+                    [84.5,21.5],
+                    [58.5,44],
+                    [83.5,-38.5],
+                    [50.5,22],
+                    [83,44],
+                    [29,-11.5],
+                    [21.5,13.5],
+                    [45,-15],
+                    [76.5,-19.5]]
 
         pts_ground_world = np.array(PTS_GROUND_PLANE, dtype=np.float32)
         pts_ground_bev = np.column_stack([
@@ -65,7 +95,7 @@ class LaneDetector(Node):
             y_left  = (self.Y_MAX - bottom_x_left  / self.BEV_W * (self.Y_MAX - self.Y_MIN)) * 0.0254
             y_right = (self.Y_MAX - bottom_x_right / self.BEV_W * (self.Y_MAX - self.Y_MIN)) * 0.0254
             lane_width_m = abs(y_right - y_left)
-            if not (0.8 < lane_width_m < 1.2):
+            if not (0.6 < lane_width_m < 1.1):
                 self.get_logger().warn(
                     f"Lane width {lane_width_m:.2f} m out of range, discarding left/right fits")
                 left_fit = right_fit = center_fit = None
@@ -75,6 +105,7 @@ class LaneDetector(Node):
 
         debug_msg = self.bridge.cv2_to_imgmsg(debug, "bgr8")
         self.debug_pub.publish(debug_msg)
+
 
     def _fit_to_path(self, center_fit, header):
         """

@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import os
+import glob
 
 def _get_mask(bev_img):
     # color: white pixels
@@ -71,7 +73,7 @@ def _get_mask_contour(bev_img):
         if ch == 0:
             continue
         aspect_ratio = float(cw) / ch
-        if aspect_ratio < 1/8 or aspect_ratio > 8:
+        if aspect_ratio < 1/8 or aspect_ratio > 82:
             filtered.append(contour)
 
     contour_mask = np.zeros_like(gray_uint8)
@@ -157,16 +159,14 @@ def _sliding_window_fit(mask, base_x):
     return coeffs, all_xs, all_ys
 
 
-LANE_WIDTH_M = 1.1          # expected track lane width in metres
-INCHES_PER_M = 1.0 / 0.0254
-
-
-def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=False):
+def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True):
     """
     bev_w  - pixel width of the BEV image (defaults to img width)
     y_min/y_max - real-world Y range in inches that spans bev_w pixels
                   (y_min is rightmost edge, y_max is leftmost edge)
     """
+    LANE_WIDTH_M = 0.9         # expected track lane width in metres
+    INCHES_PER_M = 1.0 / 0.0254
 
     mask, _, steps = _get_mask(bev_img)
     if use_contour:
@@ -244,7 +244,7 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=Fals
         y_left_m  = (y_max - bx_l / bev_w * (y_max - y_min)) * 0.0254
         y_right_m = (y_max - bx_r / bev_w * (y_max - y_min)) * 0.0254
         lane_width_m = abs(y_right_m - y_left_m)
-        if not (0.7 < lane_width_m < 1.5):
+        if not (0.6 < lane_width_m < 1.2):
             if len(left_xs) >= len(right_xs):
                 discarded_fit = right_fit
                 right_fit, right_xs, right_ys = None, [], []
@@ -348,3 +348,16 @@ def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
         vis = np.vstack([vis, steps_row])
 
     return vis
+
+if __name__ == "__main__":
+   source_folder = '../../../../racetrack_images/lane_3'
+   destination_folder = 'racetrack_images/lane_3_out'
+   os.makedirs(destination_folder, exist_ok=True)
+
+   for image_path in glob.glob(os.path.join(source_folder, '*.png')):
+      print(image_path)
+      original = cv2.imread(image_path,cv2.IMREAD_COLOR)
+      processed_image, *rest = lane_segmentation(original)
+
+      filename = os.path.basename(image_path)
+      cv2.imwrite(os.path.join(destination_folder, filename), processed_image)
