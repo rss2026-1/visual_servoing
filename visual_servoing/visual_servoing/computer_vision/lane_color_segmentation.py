@@ -6,7 +6,7 @@ import glob
 def _get_mask(bev_img):
     # color: white pixels
     img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
-    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 180]), np.array([180, 60, 255]))
+    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 200]), np.array([180, 20, 255]))
 
     # direction: keep only vertically-structured features
     # Blur the Sobel responses over a neighbourhood so interior pixels of a
@@ -40,7 +40,7 @@ def _get_mask_contour(bev_img):
 
     # color mask. white pixels
     img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
-    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 170]), np.array([180, 60, 255]))
+    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 200]), np.array([180, 25, 255]))
 
     # Sobel filter to only keep vertical features.
     # Blur the Sobel responses over a neighbourhood so interior pixels of
@@ -73,7 +73,7 @@ def _get_mask_contour(bev_img):
         if ch == 0:
             continue
         aspect_ratio = float(cw) / ch
-        if aspect_ratio < 1/8 or aspect_ratio > 82:
+        if aspect_ratio < 1/8 or aspect_ratio > 8:
             filtered.append(contour)
 
     contour_mask = np.zeros_like(gray_uint8)
@@ -102,12 +102,10 @@ def _find_histogram_peaks(histogram, min_separation):
     """
     hist = histogram.astype(float)
 
-    # First (strongest) peak
     peak1_x = int(np.argmax(hist))
     if hist[peak1_x] == 0:
         return None, None
 
-    # Suppress a window around the first peak and find the second
     suppressed = hist.copy()
     lo = max(0, peak1_x - min_separation)
     hi = min(len(hist), peak1_x + min_separation)
@@ -116,13 +114,45 @@ def _find_histogram_peaks(histogram, min_separation):
     peak2_x   = int(np.argmax(suppressed))
     peak2_val = suppressed[peak2_x]
 
-    # Require the second peak to be at least 20 % of the first
     if peak2_val < 0.20 * hist[peak1_x]:
         return peak1_x, None
 
     left_x  = min(peak1_x, peak2_x)
     right_x = max(peak1_x, peak2_x)
     return left_x, right_x
+
+
+def _find_blob_peaks(mask, min_separation):
+    """
+    Find the x-centroids of the two largest connected blobs in *mask* that are
+    at least min_separation pixels apart.  Returns (left_x, right_x) sorted by
+    x, or (peak_x, None) if only one usable blob exists.
+
+    Scoring by blob area rather than histogram column-sums handles angled lane
+    lines correctly: an angled line spreads pixels across many columns (lower
+    per-column histogram peak) but its total area still beats noise fragments.
+    """
+    n_labels, _, stats, centroids = cv2.connectedComponentsWithStats(mask, connectivity=8)
+    if n_labels <= 1:
+        return None, None
+
+    # Sort by area descending, skipping background (label 0)
+    order = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
+
+    best_xs = []
+    for idx in order:
+        cx = int(centroids[idx][0])
+        if all(abs(cx - bx) >= min_separation for bx in best_xs):
+            best_xs.append(cx)
+        if len(best_xs) == 2:
+            break
+
+    if not best_xs:
+        return None, None
+    if len(best_xs) == 1:
+        return best_xs[0], None
+
+    return min(best_xs), max(best_xs)
 
 
 def _sliding_window_fit(mask, base_x):
@@ -168,9 +198,9 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     LANE_WIDTH_M = 0.9         # expected track lane width in metres
     INCHES_PER_M = 1.0 / 0.0254
 
-    mask, _, steps = _get_mask(bev_img)
+    mask, contours, steps = _get_mask(bev_img)
     if use_contour:
-        mask, _, steps = _get_mask_contour(bev_img)
+        mask, contours, steps = _get_mask_contour(bev_img)
 
     h, w = mask.shape
     if bev_w is None:
@@ -180,11 +210,13 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     half_lane_in = LANE_WIDTH_M * INCHES_PER_M / 2.0        # inches
     half_lane_px = int(half_lane_in / (y_max - y_min) * bev_w)
 
-    # base detection: find two best-separated peaks anywhere in the image
-    # This handles the case where the car is at an angle and both lines are on
-    # the same side of the image center.
-    histogram = np.sum(mask[h// 4:, :], axis=0)
-    peak_left_x, peak_right_x = _find_histogram_peaks(histogram, min_separation=half_lane_px)
+    # base detection: find the two largest blobs in the bottom 3/4 of the mask.
+    # Blob area is orientation-independent — an angled lane line has the same
+    # total pixel count whether it's vertical or diagonal, unlike a histogram
+    # column-sum which penalises non-vertical lines.
+    bottom_mask = mask[h // 4:, :]
+    peak_left_x, peak_right_x = _find_blob_peaks(bottom_mask, min_separation=half_lane_px)
+    histogram = np.sum(bottom_mask, axis=0)   # kept for debug visualisation only
 
     if peak_left_x is None:
         # No signal
@@ -279,20 +311,26 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
 
     debug = _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
                         left_xs, left_ys, right_xs, right_ys, bottom_x_center, discarded_fit,
-                        histogram, peak_left_x, peak_right_x, steps)
+                        histogram, peak_left_x, peak_right_x, steps, contours)
 
     return mask, left_fit, right_fit, center_fit, bottom_x_left, bottom_x_right, bottom_x_center, debug
 
 
 def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
                 left_xs, left_ys, right_xs, right_ys, center_x, discarded_fit=None,
-                histogram=None, peak_left_x=None, peak_right_x=None, steps=None):
+                histogram=None, peak_left_x=None, peak_right_x=None, steps=None, contours=None):
     vis = bev_img.copy()
     h, w = vis.shape[:2]
 
     overlay = np.zeros_like(vis)
     overlay[:, :, 1] = mask
     vis = cv2.addWeighted(vis, 0.7, overlay, 0.3, 0)
+
+    if contours:
+        for c in contours:
+            rect = cv2.minAreaRect(c)
+            box = cv2.boxPoints(rect).astype(np.int32)
+            cv2.drawContours(vis, [box], 0, (0, 255, 255), 1)
 
     for x, y in zip(left_xs, left_ys):
         cv2.circle(vis, (int(x), int(y)), 2, (255, 0, 0), -1)
