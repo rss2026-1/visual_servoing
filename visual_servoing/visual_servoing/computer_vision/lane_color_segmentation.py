@@ -122,37 +122,76 @@ def _find_histogram_peaks(histogram, min_separation):
     return left_x, right_x
 
 
+def _find_blob_peaks_bottom(mask, min_separation, bottom_rows=100):
+    """
+    Find the two biggest blobs and return bottom-anchored x positions: the mean
+    x of each blob's pixels in the lower rows, so the sliding
+    window starts where the line actually sits at the base of the image
+    Falls back to the centroid if the blob doesn't reach the bottom strip.
+    """
+    n_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask, connectivity=8)
+    if n_labels <= 1:
+        return None, None
+
+    # Sort by area descending, skipping background (index 0)
+    order_index = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
+
+    h = mask.shape[0]
+    bottom_y = max(0, h - bottom_rows) # where the bottom 50 pixels start
+
+    # best: list of (centroid_x, base_x) — centroid used for separation, base_x returned
+    best = []
+    for i in order_index:
+        centroid_x = int(centroids[i][0])
+        if not all(abs(centroid_x - prev_cx) >= min_separation for prev_cx, base_x in best):
+            continue
+
+        blob_bottom = labels[bottom_y:] == i
+        if blob_bottom.any():
+            ys, xs = np.where(blob_bottom)
+            base_x = int(np.mean(xs))
+        else:
+            base_x = centroid_x  # blob doesn't reach the bottom strip — fall back to centroid
+
+        best.append((centroid_x, base_x))
+        if len(best) == 2:
+            break
+
+    if not best:
+        return None, None
+    if len(best) == 1:
+        return best[0][1], None
+
+    x0, x1 = best[0][1], best[1][1]
+    return min(x0, x1), max(x0, x1)
+
 def _find_blob_peaks(mask, min_separation):
     """
-    Find the x-centroids of the two largest connected blobs in *mask* that are
-    at least min_separation pixels apart.  Returns (left_x, right_x) sorted by
-    x, or (peak_x, None) if only one usable blob exists.
-
-    Scoring by blob area rather than histogram column-sums handles angled lane
-    lines correctly: an angled line spreads pixels across many columns (lower
-    per-column histogram peak) but its total area still beats noise fragments.
+    Find the two biggest blobs and return centroid positions
     """
     n_labels, _, stats, centroids = cv2.connectedComponentsWithStats(mask, connectivity=8)
     if n_labels <= 1:
         return None, None
 
-    # Sort by area descending, skipping background (label 0)
-    order = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
+    # Sort by area descending, skipping background (index 0)
+    order_index = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
 
-    best_xs = []
-    for idx in order:
-        cx = int(centroids[idx][0])
-        if all(abs(cx - bx) >= min_separation for bx in best_xs):
-            best_xs.append(cx)
-        if len(best_xs) == 2:
+    # best: list of (centroid_x, base_x) — centroid used for separation, base_x returned
+    best = []
+    for i in order_index:
+        centroid_x = int(centroids[i][0])
+        if all(abs(centroid_x - prev_cx) >= min_separation for prev_cx in best):
+            best.append(centroid_x)
+
+        if len(best) == 2:
             break
 
-    if not best_xs:
+    if not best:
         return None, None
-    if len(best_xs) == 1:
-        return best_xs[0], None
+    if len(best) == 1:
+        return best[0], None
 
-    return min(best_xs), max(best_xs)
+    return min(best), max(best)
 
 
 def _sliding_window_fit(mask, base_x):
@@ -215,7 +254,7 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     # total pixel count whether it's vertical or diagonal, unlike a histogram
     # column-sum which penalises non-vertical lines.
     bottom_mask = mask[h // 4:, :]
-    peak_left_x, peak_right_x = _find_blob_peaks(bottom_mask, min_separation=half_lane_px)
+    peak_left_x, peak_right_x = _find_blob_peaks_bottom(bottom_mask, min_separation=half_lane_px)
     histogram = np.sum(bottom_mask, axis=0)   # kept for debug visualisation only
 
     if peak_left_x is None:
