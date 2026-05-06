@@ -73,7 +73,7 @@ def _get_mask_contour(bev_img):
         if ch == 0:
             continue
         aspect_ratio = float(cw) / ch
-        if aspect_ratio < 1/8 or aspect_ratio > 82:
+        if aspect_ratio < 1/8 or aspect_ratio > 8:
             filtered.append(contour)
 
     contour_mask = np.zeros_like(gray_uint8)
@@ -168,9 +168,10 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     LANE_WIDTH_M = 0.9         # expected track lane width in metres
     INCHES_PER_M = 1.0 / 0.0254
 
-    mask, _, steps = _get_mask(bev_img)
     if use_contour:
         mask, _, steps = _get_mask_contour(bev_img)
+    else:
+        mask, _, steps = _get_mask(bev_img)
 
     h, w = mask.shape
     if bev_w is None:
@@ -183,7 +184,7 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     # base detection: find two best-separated peaks anywhere in the image
     # This handles the case where the car is at an angle and both lines are on
     # the same side of the image center.
-    histogram = np.sum(mask[h// 4:, :], axis=0)
+    histogram = np.sum(mask[h // 4:, :], axis=0)
     peak_left_x, peak_right_x = _find_histogram_peaks(histogram, min_separation=half_lane_px)
 
     if peak_left_x is None:
@@ -350,14 +351,63 @@ def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
     return vis
 
 if __name__ == "__main__":
-   source_folder = '../../../../racetrack_images/lane_3'
-   destination_folder = 'racetrack_images/lane_3_out'
-   os.makedirs(destination_folder, exist_ok=True)
+    BEV_W, BEV_H = 1000, 500
+    X_MIN, X_MAX =  0, 80
+    Y_MIN, Y_MAX = -80, 80
+    car_bev_x = int((Y_MAX - 0) / (Y_MAX - Y_MIN) * BEV_W)
+    car_bev_y = int((X_MAX - 0) / (X_MAX - X_MIN) * BEV_H)
 
-   for image_path in glob.glob(os.path.join(source_folder, '*.png')):
-      print(image_path)
-      original = cv2.imread(image_path,cv2.IMREAD_COLOR)
-      processed_image, *rest = lane_segmentation(original)
+    PTS_IMAGE_PLANE =   [[331,173],
+                        [81,228],
+                        [509, 182],
+                        [247,171],
+                        [92,182],
+                        [490,170],
+                        [187,195],
+                        [148,177],
+                        [485,234],
+                        [147,260],
+                        [445,200],
+                        [414,178]]
 
-      filename = os.path.basename(image_path)
-      cv2.imwrite(os.path.join(destination_folder, filename), processed_image)
+    PTS_GROUND_PLANE =  [[75,0],
+                        [26,22],
+                        [58.5, -29],
+                        [84.5,21.5],
+                        [58.5,44],
+                        [83.5,-38.5],
+                        [50.5,22],
+                        [83,44],
+                        [29,-11.5],
+                        [21.5,13.5],
+                        [45,-15],
+                        [76.5,-19.5]]
+
+    pts_ground_world = np.array(PTS_GROUND_PLANE, dtype=np.float32)
+    pts_ground_bev = np.column_stack([
+        (Y_MAX - pts_ground_world[:, 1]) / (Y_MAX - Y_MIN) * BEV_W,
+        (X_MAX - pts_ground_world[:, 0]) / (X_MAX - X_MIN) * BEV_H,
+    ])
+    pts_image = np.array(PTS_IMAGE_PLANE, dtype=np.float32)
+    H, _ = cv2.findHomography(pts_image, pts_ground_bev.astype(np.float32))
+
+    # source_folder = '../../../../racetrack_images/lane_6'
+    # destination_folder = 'racetrack_images/lane_6_out'
+    # os.makedirs(destination_folder, exist_ok=True)
+
+    # for image_path in glob.glob(os.path.join(source_folder, '*.png')):
+    #     original = cv2.imread(image_path,cv2.IMREAD_COLOR)
+    #     bev = cv2.warpPerspective(original, H, (BEV_W, BEV_H))
+    #     cv2.drawMarker(bev, (car_bev_x, car_bev_y), (0, 255, 0), cv2.MARKER_TRIANGLE_UP, 20, 2)
+    #     *rest, processed_image = lane_segmentation(bev)
+
+    #     filename = os.path.basename(image_path)
+    #     cv2.imwrite(os.path.join(destination_folder, filename), processed_image)
+    
+    original = cv2.imread('../../../../racetrack_images/lane_6/image3.png', cv2.IMREAD_COLOR)
+    bev = cv2.warpPerspective(original, H, (BEV_W, BEV_H))
+    cv2.drawMarker(bev, (car_bev_x, car_bev_y), (0, 255, 0), cv2.MARKER_TRIANGLE_UP, 20, 2)
+    # *rest, processed_image = lane_segmentation(bev)
+
+    os.makedirs('racetrack_images/output', exist_ok=True)
+    cv2.imwrite(os.path.join('racetrack_images/output', 'bev.png'), bev)
