@@ -16,6 +16,8 @@ from nav_msgs.msg import Path
 # import your color segmentation algorithm; call this function in ros_image_callback!
 from visual_servoing.computer_vision.lane_color_segmentation import lane_segmentation
 
+LOOKAHEAD_M = 2  # keep in sync with lane_follower_pp.py
+
 class LaneDetector(Node):
     """
     A class for applying lane detection algorithms to the real robot.
@@ -102,10 +104,29 @@ class LaneDetector(Node):
 
         if center_fit is not None:
             self.path_pub.publish(self._fit_to_path(center_fit, image_msg.header))
+            la_px = self._lookahead_bev_px(center_fit)
+            if la_px is not None:
+                cv2.circle(debug, la_px, 14, (0, 255, 255), -1)
+                cv2.circle(debug, la_px, 14, (0, 0, 0), 2)
 
         debug_msg = self.bridge.cv2_to_imgmsg(debug, "bgr8")
         self.debug_pub.publish(debug_msg)
 
+
+    def _lookahead_bev_px(self, center_fit):
+        """Walk the fitted center path (near→far) and return the BEV pixel
+        (bev_x, bev_y) where the euclidean distance from the car first reaches
+        LOOKAHEAD_M, or None if the BEV view doesn't extend that far."""
+        bev_ys = np.linspace(self.BEV_H - 1, 0, 300)
+        bev_xs = np.polyval(center_fit, bev_ys)
+        for bev_x, bev_y in zip(bev_xs, bev_ys):
+            x_m = (self.X_MAX - bev_y / self.BEV_H * (self.X_MAX - self.X_MIN)) * 0.0254
+            y_m = (self.Y_MAX - bev_x / self.BEV_W * (self.Y_MAX - self.Y_MIN)) * 0.0254
+            if np.hypot(x_m, y_m) >= LOOKAHEAD_M:
+                px = int(np.clip(round(bev_x), 0, self.BEV_W - 1))
+                py = int(np.clip(round(bev_y), 0, self.BEV_H - 1))
+                return px, py
+        return None
 
     def _fit_to_path(self, center_fit, header):
         """

@@ -6,7 +6,7 @@ import glob
 def _get_mask(bev_img):
     # color: white pixels
     img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
-    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 180]), np.array([180, 60, 255]))
+    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 200]), np.array([180, 20, 255]))
 
     # direction: keep only vertically-structured features
     # Blur the Sobel responses over a neighbourhood so interior pixels of a
@@ -40,7 +40,7 @@ def _get_mask_contour(bev_img):
 
     # color mask. white pixels
     img_hsv = cv2.cvtColor(bev_img, cv2.COLOR_BGR2HSV)
-    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 170]), np.array([180, 60, 255]))
+    color_mask = cv2.inRange(img_hsv, np.array([0, 0, 200]), np.array([180, 25, 255]))
 
     # Sobel filter to only keep vertical features.
     # Blur the Sobel responses over a neighbourhood so interior pixels of
@@ -102,12 +102,10 @@ def _find_histogram_peaks(histogram, min_separation):
     """
     hist = histogram.astype(float)
 
-    # First (strongest) peak
     peak1_x = int(np.argmax(hist))
     if hist[peak1_x] == 0:
         return None, None
 
-    # Suppress a window around the first peak and find the second
     suppressed = hist.copy()
     lo = max(0, peak1_x - min_separation)
     hi = min(len(hist), peak1_x + min_separation)
@@ -116,13 +114,84 @@ def _find_histogram_peaks(histogram, min_separation):
     peak2_x   = int(np.argmax(suppressed))
     peak2_val = suppressed[peak2_x]
 
-    # Require the second peak to be at least 20 % of the first
     if peak2_val < 0.20 * hist[peak1_x]:
         return peak1_x, None
 
     left_x  = min(peak1_x, peak2_x)
     right_x = max(peak1_x, peak2_x)
     return left_x, right_x
+
+
+def _find_blob_peaks_bottom(mask, min_separation, bottom_rows=100):
+    """
+    Find the two biggest blobs and return bottom-anchored x positions: the mean
+    x of each blob's pixels in the lower rows, so the sliding
+    window starts where the line actually sits at the base of the image
+    Falls back to the centroid if the blob doesn't reach the bottom strip.
+    """
+    n_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(mask, connectivity=8)
+    if n_labels <= 1:
+        return None, None
+
+    # Sort by area descending, skipping background (index 0)
+    order_index = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
+
+    h = mask.shape[0]
+    bottom_y = max(0, h - bottom_rows) # where the bottom 50 pixels start
+
+    # best: list of (centroid_x, base_x) — centroid used for separation, base_x returned
+    best = []
+    for i in order_index:
+        centroid_x = int(centroids[i][0])
+        if not all(abs(centroid_x - prev_cx) >= min_separation for prev_cx, base_x in best):
+            continue
+
+        blob_bottom = labels[bottom_y:] == i
+        if blob_bottom.any():
+            ys, xs = np.where(blob_bottom)
+            base_x = int(np.mean(xs))
+        else:
+            base_x = centroid_x  # blob doesn't reach the bottom strip — fall back to centroid
+
+        best.append((centroid_x, base_x))
+        if len(best) == 2:
+            break
+
+    if not best:
+        return None, None
+    if len(best) == 1:
+        return best[0][1], None
+
+    x0, x1 = best[0][1], best[1][1]
+    return min(x0, x1), max(x0, x1)
+
+def _find_blob_peaks(mask, min_separation):
+    """
+    Find the two biggest blobs and return centroid positions
+    """
+    n_labels, _, stats, centroids = cv2.connectedComponentsWithStats(mask, connectivity=8)
+    if n_labels <= 1:
+        return None, None
+
+    # Sort by area descending, skipping background (index 0)
+    order_index = np.argsort(stats[1:, cv2.CC_STAT_AREA])[::-1] + 1
+
+    # best: list of (centroid_x, base_x) — centroid used for separation, base_x returned
+    best = []
+    for i in order_index:
+        centroid_x = int(centroids[i][0])
+        if all(abs(centroid_x - prev_cx) >= min_separation for prev_cx in best):
+            best.append(centroid_x)
+
+        if len(best) == 2:
+            break
+
+    if not best:
+        return None, None
+    if len(best) == 1:
+        return best[0], None
+
+    return min(best), max(best)
 
 
 def _sliding_window_fit(mask, base_x):
@@ -181,11 +250,13 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
     half_lane_in = LANE_WIDTH_M * INCHES_PER_M / 2.0        # inches
     half_lane_px = int(half_lane_in / (y_max - y_min) * bev_w)
 
-    # base detection: find two best-separated peaks anywhere in the image
-    # This handles the case where the car is at an angle and both lines are on
-    # the same side of the image center.
-    histogram = np.sum(mask[h // 4:, :], axis=0)
-    peak_left_x, peak_right_x = _find_histogram_peaks(histogram, min_separation=half_lane_px)
+    # base detection: find the two largest blobs in the bottom 3/4 of the mask.
+    # Blob area is orientation-independent — an angled lane line has the same
+    # total pixel count whether it's vertical or diagonal, unlike a histogram
+    # column-sum which penalises non-vertical lines.
+    bottom_mask = mask[h // 4:, :]
+    peak_left_x, peak_right_x = _find_blob_peaks_bottom(bottom_mask, min_separation=half_lane_px)
+    histogram = np.sum(bottom_mask, axis=0)   # kept for debug visualisation only
 
     if peak_left_x is None:
         # No signal
@@ -280,20 +351,26 @@ def lane_segmentation(bev_img, bev_w=None, y_min=-80, y_max=80, use_contour=True
 
     debug = _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
                         left_xs, left_ys, right_xs, right_ys, bottom_x_center, discarded_fit,
-                        histogram, peak_left_x, peak_right_x, steps)
+                        histogram, peak_left_x, peak_right_x, steps, contours)
 
     return mask, left_fit, right_fit, center_fit, bottom_x_left, bottom_x_right, bottom_x_center, debug
 
 
 def _draw_debug(bev_img, mask, left_fit, right_fit, center_fit,
                 left_xs, left_ys, right_xs, right_ys, center_x, discarded_fit=None,
-                histogram=None, peak_left_x=None, peak_right_x=None, steps=None):
+                histogram=None, peak_left_x=None, peak_right_x=None, steps=None, contours=None):
     vis = bev_img.copy()
     h, w = vis.shape[:2]
 
     overlay = np.zeros_like(vis)
     overlay[:, :, 1] = mask
     vis = cv2.addWeighted(vis, 0.7, overlay, 0.3, 0)
+
+    if contours:
+        for c in contours:
+            rect = cv2.minAreaRect(c)
+            box = cv2.boxPoints(rect).astype(np.int32)
+            cv2.drawContours(vis, [box], 0, (0, 255, 255), 1)
 
     for x, y in zip(left_xs, left_ys):
         cv2.circle(vis, (int(x), int(y)), 2, (255, 0, 0), -1)
